@@ -11,7 +11,7 @@ export default function Document() {
 
         <link
           rel="stylesheet"
-          href="https://unpkg.com/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          href="https://unpkg.com/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
         />
         <link
           rel="stylesheet"
@@ -25,10 +25,17 @@ export default function Document() {
           rel="stylesheet"
           href="https://unpkg.com/prismjs@1.29.0/themes/prism.min.css"
         />
+        <link
+          rel="stylesheet"
+          href="https://cdn.authing.co/packages/guard/5.1.2/guard.min.css"
+        />
       </Head>
 
       <body>
         <Main />
+
+        <div id="authing-modal" />
+
         <NextScript />
       </body>
     </Html>
