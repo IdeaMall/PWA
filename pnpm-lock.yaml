@@ -10,6 +10,7 @@ specifiers:
   '@editorjs/list': ^1.8.0
   '@editorjs/paragraph': ^2.9.0
   '@editorjs/quote': ^2.5.0
+  '@ideamall/data-model': ^0.9.0
   '@octokit/openapi-types': ^16.0.0
   '@types/lodash': ^4.14.191
   '@types/node': ^16.18.12
@@ -55,6 +56,7 @@ dependencies:
   '@editorjs/list': 1.8.0
   '@editorjs/paragraph': 2.9.0
   '@editorjs/quote': 2.5.0
+  '@ideamall/data-model': 0.9.0_p26dyi66jui5532votno5vdvqi
   editorjs-html: 3.4.2
   idea-react: 0.27.11_ljcshh7vwitidgxq3r6xvmjpx4
   koajax: 0.8.3_typescript@4.9.5
@@ -1469,6 +1471,20 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
+  /@ideamall/data-model/0.9.0_p26dyi66jui5532votno5vdvqi:
+    resolution: {integrity: sha512-xWpRg4rTis3sGnb8mU9cfK9m7GQDF7VYUiItBN/RI1E+E84h+6zu1Q/7Ad3FzhmT+XaQ+aZv2hgXWPnsKoEWVg==, tarball: download/@ideamall/data-model/0.9.0/60e6afd70da97d5d7aa4f0805ff58cb499e11794}
+    dependencies:
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
+      mobx-restful: 0.6.0_p26dyi66jui5532votno5vdvqi
+      reflect-metadata: 0.1.13
+      tslib: 2.5.0
+    transitivePeerDependencies:
+      - jsdom
+      - mobx
+      - typescript
+    dev: false
+
   /@jridgewell/gen-mapping/0.1.1:
     resolution: {integrity: sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w==}
     engines: {node: '>=6.0.0'}
@@ -2451,6 +2467,10 @@ packages:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
     dev: true
+
+  /class-transformer/0.5.1:
+    resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
+    dev: false
 
   /class-validator/0.14.0:
     resolution: {integrity: sha512-ct3ltplN8I9fOwUd8GrP8UQixwff129BkEtuWDKL5W45cQuLd19xqmTLu5ge78YDm/fdje6FMt0hGOhl0lii3A==}
@@ -5550,14 +5570,14 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
-  /react-universal-interface/0.6.2_react@16.14.0+tslib@2.4.0:
+  /react-universal-interface/0.6.2_react@16.14.0+tslib@2.5.0:
     resolution: {integrity: sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==}
     peerDependencies:
       react: '*'
       tslib: '*'
     dependencies:
       react: 16.14.0
-      tslib: 2.4.0
+      tslib: 2.5.0
     dev: false
 
   /react-use/17.4.0_wcqkhtmu7mswc6yz4uyexck3ty:
@@ -5575,13 +5595,13 @@ packages:
       nano-css: 5.3.5_wcqkhtmu7mswc6yz4uyexck3ty
       react: 16.14.0
       react-dom: 16.14.0_react@16.14.0
-      react-universal-interface: 0.6.2_react@16.14.0+tslib@2.4.0
+      react-universal-interface: 0.6.2_react@16.14.0+tslib@2.5.0
       resize-observer-polyfill: 1.5.1
       screenfull: 5.2.0
       set-harmonic-interval: 1.0.1
       throttle-debounce: 3.0.1
       ts-easing: 0.2.0
-      tslib: 2.4.0
+      tslib: 2.5.0
     dev: false
 
   /react/16.14.0:
@@ -5775,7 +5795,7 @@ packages:
   /rxjs/7.5.7:
     resolution: {integrity: sha512-z9MzKh/UcOqB3i20H6rtrlaE/CgjLOvheWK/9ILrbhROGTweAi1BaFsTT9FbwZi5Trr1qNRs+MXkhmR06awzQA==}
     dependencies:
-      tslib: 2.4.0
+      tslib: 2.5.0
     dev: true
 
   /safe-buffer/5.1.2:
@@ -6316,6 +6336,9 @@ packages:
 
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
+
+  /tslib/2.5.0:
+    resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
 
   /tsutils/3.21.0_typescript@4.9.5:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}

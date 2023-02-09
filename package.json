@@ -13,6 +13,7 @@
     "@editorjs/list": "^1.8.0",
     "@editorjs/paragraph": "^2.9.0",
     "@editorjs/quote": "^2.5.0",
+    "@ideamall/data-model": "^0.9.0",
     "editorjs-html": "^3.4.2",
     "idea-react": "^0.27.11",
     "koajax": "^0.8.3",

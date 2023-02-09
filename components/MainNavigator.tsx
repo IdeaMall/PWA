@@ -1,11 +1,11 @@
-import { Option,Select } from 'idea-react';
+import { Option, Select } from 'idea-react';
 import { observer } from 'mobx-react';
 import Link from 'next/link';
 import { FC } from 'react';
-import { Button,Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 
 import { i18n, LanguageName } from '../models/Translation';
-import { SessionBox } from './SessionBox';
+import { UserMenu } from './UserMenu';
 
 const Name = process.env.NEXT_PUBLIC_SITE_NAME || '';
 
@@ -44,9 +44,7 @@ export const MainNavigator: FC = observer(() => {
             </Nav.Link>
           </Nav>
 
-          <SessionBox>
-            <Button>登录</Button>
-          </SessionBox>
+          <UserMenu />
 
           <Select
             value={currentLanguage}

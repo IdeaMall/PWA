@@ -1,6 +1,8 @@
 import { Guard } from '@authing/guard';
 import { MouseEvent, PureComponent } from 'react';
 
+import userStore from '../models/User';
+
 export const guard = new Guard({
   mode: 'modal',
   appId: process.env.NEXT_PUBLIC_AUTHING_APP_ID!,
@@ -20,11 +22,11 @@ export class SessionBox extends PureComponent {
 
     guard.on('close', this.closeModal);
 
-    const user = await guard.start('#authing-modal');
+    const { token } = await guard.start('#authing-modal');
+
+    await userStore.signInAuthing(token!);
 
     this.closeModal();
-
-    console.log(user);
   };
 
   render() {
