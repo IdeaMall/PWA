@@ -1,4 +1,7 @@
+import { BaseModel, ListChunk } from '@ideamall/data-model';
 import { HTTPClient } from 'koajax';
+import { ListModel, NewData } from 'mobx-restful';
+import { buildURLData } from 'web-utility';
 
 export const isServer = () => typeof window === 'undefined';
 
@@ -27,3 +30,15 @@ export const githubClient = new HTTPClient({
     };
   return next();
 });
+
+export abstract class TableModel<
+  D extends BaseModel,
+  F extends NewData<D> = NewData<D>,
+> extends ListModel<D, F> {
+  async loadPage(pageIndex: number, pageSize: number, filter: F) {
+    const { body } = await this.client.get<ListChunk<D>>(
+      `${this.baseURI}?${buildURLData({ ...filter, pageIndex, pageSize })}`,
+    );
+    return { pageData: body!.list, totalCount: body!.count };
+  }
+}
