@@ -36,10 +36,7 @@ export const MainNavigator: FC = observer(() => {
             <Link href="/scroll-list" passHref>
               <Nav.Link>{t('scroll_list')}</Nav.Link>
             </Link>
-            <Nav.Link
-              target="_blank"
-              href="https://github.com/idea2app/Next-Bootstrap-TS"
-            >
+            <Nav.Link target="_blank" href="https://github.com/IdeaMall/PWA">
               {t('source_code')}
             </Nav.Link>
           </Nav>

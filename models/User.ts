@@ -1,3 +1,4 @@
+import { Guard } from '@authing/guard';
 import { UserOutput } from '@ideamall/data-model';
 import { HTTPClient } from 'koajax';
 import { observable } from 'mobx';
@@ -6,6 +7,11 @@ import { toggle } from 'mobx-restful';
 import { TableModel } from './Base';
 
 const { localStorage } = globalThis;
+
+export const guard = new Guard({
+  mode: 'modal',
+  appId: process.env.NEXT_PUBLIC_AUTHING_APP_ID!,
+});
 
 export class UserModel extends TableModel<UserOutput> {
   baseURI = 'user';
@@ -40,6 +46,15 @@ export class UserModel extends TableModel<UserOutput> {
       { Authorization: `Bearer ${token}` },
     );
     return this.saveSession(body!);
+  }
+
+  @toggle('uploading')
+  async signOut() {
+    await guard.logout();
+
+    this.session = undefined;
+
+    localStorage.clear();
   }
 }
 
