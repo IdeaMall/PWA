@@ -10,7 +10,9 @@ export const UserMenu: FC = observer(() =>
     <DropdownButton
       title={userStore.session.nickName || userStore.session.mobilePhone}
     >
-      <Dropdown.Item>Profile</Dropdown.Item>
+      <Dropdown.Item onClick={() => userStore.signOut()}>
+        Sign out
+      </Dropdown.Item>
     </DropdownButton>
   ) : (
     <SessionBox>

@@ -1,9 +1,9 @@
-# Next-Bootstrap.ts
+# IdeaMall - PWA
 
 [React][1] project scaffold based on [TypeScript][2], [Next.js][3], [Bootstrap][4] & [Workbox][5]. And this project bootstrapped with [`create-next-app`][6].
 
-[![NPM Dependency](https://david-dm.org/idea2app/next-bootstrap-ts.svg)][7]
-[![CI & CD](https://github.com/idea2app/Next-Bootstrap-ts/actions/workflows/main.yml/badge.svg)][8]
+[![NPM Dependency](https://david-dm.org/ideamall/pwa.svg)][7]
+[![CI & CD](https://github.com/IdeaMall/PWA/actions/workflows/main.yml/badge.svg)][8]
 
 ## Technology stack
 
@@ -61,8 +61,8 @@ pnpm container
 [4]: https://getbootstrap.com/
 [5]: https://developers.google.com/web/tools/workbox
 [6]: https://github.com/vercel/next.js/tree/canary/packages/create-next-app
-[7]: https://david-dm.org/idea2app/next-bootstrap-ts
-[8]: https://github.com/idea2app/Next-Bootstrap-ts/actions/workflows/main.yml
+[7]: https://david-dm.org/ideamall/pwa
+[8]: https://github.com/IdeaMall/PWA/actions/workflows/main.yml
 [9]: https://github.com/mobxjs/mobx/tree/mobx4and5/docs
 [11]: https://github.com/features/actions
 [12]: https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme

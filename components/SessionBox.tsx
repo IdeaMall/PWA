@@ -1,23 +1,27 @@
-import { Guard } from '@authing/guard';
+import { observer } from 'mobx-react';
 import { MouseEvent, PureComponent } from 'react';
 
-import userStore from '../models/User';
+import userStore, { guard } from '../models/User';
 
-export const guard = new Guard({
-  mode: 'modal',
-  appId: process.env.NEXT_PUBLIC_AUTHING_APP_ID!,
-});
+export interface SessionBoxProps {
+  autoCover?: boolean;
+}
 
-export class SessionBox extends PureComponent {
+@observer
+export class SessionBox extends PureComponent<SessionBoxProps> {
+  componentDidMount() {
+    const { autoCover } = this.props;
+
+    if (autoCover) this.openModal();
+  }
+
   closeModal = () => {
     guard.hide();
 
     document.scrollingElement?.classList.remove('overflow-hidden');
   };
 
-  openModal = async (event: MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
-
+  async openModal() {
     document.scrollingElement?.classList.add('overflow-hidden');
 
     guard.on('close', this.closeModal);
@@ -27,11 +31,22 @@ export class SessionBox extends PureComponent {
     await userStore.signInAuthing(token!);
 
     this.closeModal();
+  }
+
+  captureInput = (event: MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+
+    this.openModal();
   };
 
   render() {
-    const { children } = this.props;
+    const { autoCover, children } = this.props,
+      { session } = userStore;
 
-    return <div onClickCapture={this.openModal}>{children}</div>;
+    return (
+      <div onClickCapture={autoCover ? undefined : this.captureInput}>
+        {(!autoCover || session) && children}
+      </div>
+    );
   }
 }
