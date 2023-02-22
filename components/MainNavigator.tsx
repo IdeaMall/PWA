@@ -41,18 +41,22 @@ export const MainNavigator: FC = observer(() => {
             </Nav.Link>
           </Nav>
 
-          <UserMenu />
+          <div className="d-flex flex-column flex-sm-row gap-3">
+            <UserMenu />
 
-          <Select
-            value={currentLanguage}
-            onChange={key => i18n.changeLanguage(key as typeof currentLanguage)}
-          >
-            {Object.entries(LanguageName).map(([key, name]) => (
-              <Option key={key} value={key}>
-                {name}
-              </Option>
-            ))}
-          </Select>
+            <Select
+              value={currentLanguage}
+              onChange={key =>
+                i18n.changeLanguage(key as typeof currentLanguage)
+              }
+            >
+              {Object.entries(LanguageName).map(([key, name]) => (
+                <Option key={key} value={key}>
+                  {name}
+                </Option>
+              ))}
+            </Select>
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>

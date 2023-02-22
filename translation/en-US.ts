@@ -1,6 +1,9 @@
 import { IDType } from 'mobx-restful';
 
 export default {
+  sign_in: 'Sign In',
+  sign_out: 'Sign out',
+
   welcome_to: 'Welcome to',
   get_started_by_editing: 'Get started by editing',
   upstream_projects: 'Upstream projects',
