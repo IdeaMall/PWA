@@ -1,14 +1,29 @@
+import { Role } from '@ideamall/data-model';
+import { computed } from 'mobx';
 import { observer } from 'mobx-react';
+import Head from 'next/head';
 import { MouseEvent, PureComponent } from 'react';
 
 import userStore, { guard } from '../models/User';
 
 export interface SessionBoxProps {
+  className?: string;
   autoCover?: boolean;
+  roles?: Role[];
 }
 
 @observer
 export class SessionBox extends PureComponent<SessionBoxProps> {
+  @computed
+  get authorized() {
+    const { roles } = this.props,
+      { session } = userStore;
+
+    return !!(roles
+      ? session?.roles?.some(role => roles?.includes(role))
+      : session);
+  }
+
   componentDidMount() {
     const { autoCover } = this.props;
 
@@ -22,11 +37,15 @@ export class SessionBox extends PureComponent<SessionBoxProps> {
   };
 
   async openModal() {
+    if (+new Date(localStorage.tokenExpiredAt) > Date.now()) return;
+
     document.scrollingElement?.classList.add('overflow-hidden');
 
     guard.on('close', this.closeModal);
 
-    const { token } = await guard.start('#authing-modal');
+    const { token, tokenExpiredAt } = await guard.start('#authing-modal');
+
+    localStorage.tokenExpiredAt = tokenExpiredAt;
 
     await userStore.signInAuthing(token!);
 
@@ -34,19 +53,33 @@ export class SessionBox extends PureComponent<SessionBoxProps> {
   }
 
   captureInput = (event: MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
     event.stopPropagation();
 
     this.openModal();
   };
 
   render() {
-    const { autoCover, children } = this.props,
-      { session } = userStore;
+    const { className, autoCover, children } = this.props,
+      { authorized } = this;
 
     return (
-      <div onClickCapture={autoCover ? undefined : this.captureInput}>
-        {(!autoCover || session) && children}
-      </div>
+      <>
+        <Head>
+          <link
+            rel="stylesheet"
+            href="https://cdn.authing.co/packages/guard/5.1.2/guard.min.css"
+          />
+        </Head>
+        <div
+          className={className}
+          onClickCapture={
+            autoCover || authorized ? undefined : this.captureInput
+          }
+        >
+          {(!autoCover || authorized) && children}
+        </div>
+      </>
     );
   }
 }

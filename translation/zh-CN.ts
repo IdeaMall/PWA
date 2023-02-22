@@ -1,6 +1,9 @@
 import { IDType } from 'mobx-restful';
 
 export default {
+  sign_in: '登录',
+  sign_out: '退出',
+
   welcome_to: '欢迎使用',
   get_started_by_editing: '开始你的项目吧，编辑',
   upstream_projects: '上游项目',

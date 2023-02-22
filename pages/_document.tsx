@@ -25,10 +25,6 @@ export default function Document() {
           rel="stylesheet"
           href="https://unpkg.com/prismjs@1.29.0/themes/prism.min.css"
         />
-        <link
-          rel="stylesheet"
-          href="https://cdn.authing.co/packages/guard/5.1.2/guard.min.css"
-        />
       </Head>
 
       <body>
