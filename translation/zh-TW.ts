@@ -38,4 +38,28 @@ export default {
   scroll_list: '滾動列表',
   load_more: '加載更多……',
   no_more: '沒有更多',
+
+  // Admin
+  dashboard: '儀錶板',
+  users: '用戶',
+  categories: '品類',
+
+  userCount: '用戶總數',
+  categoryCount: '品類總數',
+  goodsCount: '商品總數',
+  orderCount: '訂單總數',
+  parcelCount: '郵包總數',
+  commentCount: '評價總數',
+
+  mobile_phone: '行動電話號',
+  nick_name: '暱稱',
+  gender: '性別',
+  avatar: '頭像',
+  roles: '角色',
+  administrator: '管理員',
+  manager: '經理',
+  client: '客戶',
+
+  name: '名稱',
+  parent: '上級',
 } as const;

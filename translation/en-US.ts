@@ -40,4 +40,28 @@ export default {
   scroll_list: 'Scroll List',
   load_more: 'Load more...',
   no_more: 'No more',
+
+  // Admin
+  dashboard: 'Dashboard',
+  users: 'Users',
+  categories: 'Categories',
+
+  userCount: 'User count',
+  categoryCount: 'Category count',
+  goodsCount: 'Goods count',
+  orderCount: 'Order count',
+  parcelCount: 'Parcel count',
+  commentCount: 'Comment count',
+
+  mobile_phone: 'Mobile phone',
+  nick_name: 'Nick name',
+  gender: 'Gender',
+  avatar: 'Avatar',
+  roles: 'Roles',
+  administrator: 'Administrator',
+  manager: 'Manager',
+  client: 'Client',
+
+  name: 'Name',
+  parent: 'Parent',
 } as const;
