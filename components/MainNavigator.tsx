@@ -30,9 +30,6 @@ export const MainNavigator: FC = observer(() => {
             <Link href="/component" passHref>
               <Nav.Link>{t('component')}</Nav.Link>
             </Link>
-            <Link href="/pagination" passHref>
-              <Nav.Link>{t('pagination')}</Nav.Link>
-            </Link>
             <Link href="/scroll-list" passHref>
               <Nav.Link>{t('scroll_list')}</Nav.Link>
             </Link>

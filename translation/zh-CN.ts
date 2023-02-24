@@ -38,4 +38,28 @@ export default {
   scroll_list: '滚动列表',
   load_more: '加载更多……',
   no_more: '没有更多',
+
+  // Admin
+  dashboard: '仪表盘',
+  users: '用户',
+  categories: '品类',
+
+  userCount: '用户总数',
+  categoryCount: '品类总数',
+  goodsCount: '商品总数',
+  orderCount: '订单总数',
+  parcelCount: '邮包总数',
+  commentCount: '评价总数',
+
+  mobile_phone: '手机号',
+  nick_name: '昵称',
+  gender: '性别',
+  avatar: '头像',
+  roles: '角色',
+  administrator: '管理员',
+  manager: '经理',
+  client: '客户',
+
+  name: '名称',
+  parent: '上级',
 } as const;

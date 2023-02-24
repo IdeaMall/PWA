@@ -1,12 +1,13 @@
-import { UserOutput } from '@ideamall/data-model';
+import { Gender, UserOutput } from '@ideamall/data-model';
+import { Avatar } from 'idea-react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Column, RestTable } from 'mobx-restful-table';
 import { PureComponent } from 'react';
-import { Badge, Container } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 
 import { AdminFrame } from '../../components/AdminFrame';
-import { PageHead } from '../../components/PageHead';
+import { GenderSymbol, RoleName } from '../../components/data';
 import { i18n } from '../../models/Translation';
 import userStore from '../../models/User';
 import { withTranslation } from '../api/core';
@@ -21,51 +22,55 @@ export default function UserAdminPage() {
   );
 }
 
+const { t } = i18n;
+
 @observer
 class UserAdmin extends PureComponent {
   @computed
   get columns(): Column<UserOutput>[] {
-    const { t } = i18n;
-
     return [
       {
         key: 'mobilePhone',
-        renderHead: t('repository_name'),
+        renderHead: t('mobile_phone'),
         renderBody: ({ mobilePhone }) => (
           <a href={`tel:${mobilePhone}`}>{mobilePhone}</a>
         ),
       },
-      { key: 'nickName', renderHead: t('home_page') },
-      { key: 'gender', renderHead: t('programming_language') },
+      { key: 'nickName', renderHead: t('nick_name') },
+      {
+        key: 'gender',
+        renderHead: t('gender'),
+        renderBody: ({ gender }) => GenderSymbol[gender ?? Gender.Other],
+      },
       {
         key: 'avatar',
-        type: 'file',
-        accept: 'image/*',
-        renderHead: t('star_count'),
+        renderHead: t('avatar'),
+        renderBody: ({ avatar }) => <Avatar src={avatar} />,
       },
       {
         key: 'roles',
-        renderHead: t('topic'),
-        renderBody: ({ roles }) => (
-          <>
-            {roles?.map(role => (
-              <Badge key={role} className="me-2">
-                {role}
-              </Badge>
+        renderHead: t('roles'),
+        renderBody: ({ id, roles }) => (
+          <Form.Select
+            value={Math.min(...(roles || []))}
+            onChange={({ currentTarget: { value } }) =>
+              console.log({ roles: [+value] }, id)
+            }
+          >
+            {Object.entries(RoleName()).map(([value, name]) => (
+              <option key={value} value={value}>
+                {name}
+              </option>
             ))}
-          </>
+          </Form.Select>
         ),
       },
     ];
   }
 
   render() {
-    const { t } = i18n;
-
     return (
       <Container style={{ height: '91vh' }}>
-        <PageHead title={t('pagination')} />
-
         <RestTable
           className="text-center"
           striped

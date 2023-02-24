@@ -1,22 +1,44 @@
 import { Role } from '@ideamall/data-model';
 import { Icon } from 'idea-react';
+import { observer } from 'mobx-react';
 import { PureComponent } from 'react';
 import { Container, Nav } from 'react-bootstrap';
 
+import { i18n } from '../models/Translation';
 import { MainNavigator } from './MainNavigator';
+import { PageHead } from './PageHead';
 import { SessionBox } from './SessionBox';
 
+const { t } = i18n;
+
+@observer
 export class AdminFrame extends PureComponent {
-  routes = [
-    { path: '', icon: 'clipboard-data', title: '数据仪表盘' },
-    { path: 'user', icon: 'people', title: '用户管理' },
-  ];
+  get routes() {
+    return [
+      { path: '', icon: 'clipboard-data', title: t('dashboard') },
+      { path: 'user', icon: 'people', title: t('users') },
+      { path: 'category', icon: 'tags', title: t('categories') },
+    ];
+  }
+
+  routeOf(path: string) {
+    path = ('/admin/' + path).replace(/\/$/, '');
+
+    const active = globalThis.location?.pathname === path;
+
+    return { path, active };
+  }
 
   render() {
-    const { children } = this.props;
+    const { children } = this.props,
+      { routes } = this;
+    const { title } =
+      routes.find(({ path }) => this.routeOf(path).active) || {};
 
     return (
       <SessionBox autoCover roles={[Role.Administrator]}>
+        <PageHead title={`${title} - ${t('administrator')}`} />
+
         <MainNavigator />
 
         <div className="d-flex">
@@ -25,10 +47,8 @@ export class AdminFrame extends PureComponent {
               className="flex-column position-sticky"
               style={{ top: '4rem' }}
             >
-              {this.routes.map(({ path, icon, title }) => {
-                path = ('/admin/' + path).replace(/\/$/, '');
-
-                const active = globalThis.location?.pathname === path;
+              {routes.map(({ path, icon, title }) => {
+                var { path, active } = this.routeOf(path);
 
                 return (
                   <Nav.Link
