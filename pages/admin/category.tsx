@@ -1,14 +1,22 @@
 import { CategoryInput } from '@ideamall/data-model';
 import { Loading, SpinnerButton } from 'idea-react';
-import { observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { createRef, FormEvent, MouseEvent, PureComponent } from 'react';
+import { FormField } from 'mobx-restful-table';
+import {
+  ChangeEvent,
+  createRef,
+  FormEvent,
+  MouseEvent,
+  PureComponent,
+} from 'react';
 import { Col, FloatingLabel, Form, Row } from 'react-bootstrap';
 import { formToJSON } from 'web-utility';
 
 import { AdminFrame } from '../../components/AdminFrame';
 import categoryStore, { CategoryNode } from '../../models/Category';
 import { i18n } from '../../models/Translation';
+import userStore from '../../models/User';
 import { withTranslation } from '../api/core';
 
 export const getServerSideProps = withTranslation();
@@ -25,6 +33,10 @@ interface CategoryMeta extends CategoryInput {
   id?: number;
 }
 
+interface CategoryForm extends Omit<CategoryMeta, 'image'> {
+  image?: File;
+}
+
 const { t } = i18n;
 
 @observer
@@ -34,17 +46,38 @@ class CategoryAdmin extends PureComponent {
   @observable
   current = {} as CategoryMeta;
 
+  @computed
+  get uploading() {
+    return userStore.uploading > 0 || categoryStore.uploading > 0;
+  }
+
   componentDidMount() {
     categoryStore.getAll();
   }
+
+  updateImage = ({
+    currentTarget: { files },
+  }: ChangeEvent<HTMLInputElement>) => {
+    const file = files?.[0];
+
+    if (!file) return;
+
+    const { image, ...rest } = this.current;
+
+    if (image?.startsWith('blob:')) URL.revokeObjectURL(image);
+
+    this.current = { ...rest, image: URL.createObjectURL(file) };
+  };
 
   handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const form = event.currentTarget;
-    const { id, ...data } = formToJSON<CategoryMeta>(form);
+    const { id, image, ...data } = formToJSON<CategoryForm>(form);
 
-    await categoryStore.updateOne(data, id);
+    const imageURL = image && (await userStore.upload(image));
+
+    await categoryStore.updateOne({ ...data, image: imageURL }, id);
   };
 
   handleRemove = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -62,8 +95,9 @@ class CategoryAdmin extends PureComponent {
   };
 
   renderForm() {
-    const { id, name, parentId } = this.current,
-      { uploading, allItems } = categoryStore;
+    const { uploading } = this,
+      { id, name, image, parentId } = this.current,
+      { allItems } = categoryStore;
 
     return (
       <Col
@@ -86,6 +120,14 @@ class CategoryAdmin extends PureComponent {
           />
         </FloatingLabel>
 
+        <FormField
+          label="image"
+          type="file"
+          accept="image/*"
+          name="image"
+          value={image}
+          onChange={this.updateImage}
+        />
         <FloatingLabel controlId="parentId" label={t('parent')}>
           <Form.Select
             name="parentId"
@@ -105,7 +147,7 @@ class CategoryAdmin extends PureComponent {
           </Form.Select>
         </FloatingLabel>
 
-        <SpinnerButton className="w-100" type="submit" loading={uploading > 0}>
+        <SpinnerButton className="w-100" type="submit" loading={uploading}>
           {t('submit')}
         </SpinnerButton>
 
@@ -113,7 +155,7 @@ class CategoryAdmin extends PureComponent {
           <SpinnerButton
             className="w-100"
             variant="danger"
-            loading={uploading > 0}
+            loading={uploading}
             onClick={this.handleRemove}
           >
             {t('delete')}
@@ -123,10 +165,10 @@ class CategoryAdmin extends PureComponent {
     );
   }
 
-  renderTree({ id, name, parentId, subs }: CategoryNode) {
+  renderTree({ name, subs, ...rest }: CategoryNode) {
     return (
       <details key={name} className="ps-3" open>
-        <summary onClick={() => (this.current = { id, name, parentId })}>
+        <summary onClick={() => (this.current = { name, ...rest })}>
           {name}
         </summary>
         {subs?.map(node => this.renderTree(node))}

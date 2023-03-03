@@ -43,6 +43,7 @@ export default {
   dashboard: '儀錶板',
   users: '用戶',
   categories: '品類',
+  goods: '商品',
 
   userCount: '用戶總數',
   categoryCount: '品類總數',
@@ -62,4 +63,8 @@ export default {
 
   name: '名稱',
   parent: '上級',
+
+  detail: '詳情',
+  extra_style_name: '附加樣式名',
+  extra_style_values: '附加樣式值（空格分隔）',
 } as const;

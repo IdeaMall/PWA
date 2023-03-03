@@ -50,11 +50,12 @@ class UserAdmin extends PureComponent {
       {
         key: 'roles',
         renderHead: t('roles'),
-        renderBody: ({ id, roles }) => (
+        renderBody: ({ id, roles, ...user }) => (
           <Form.Select
             value={Math.min(...(roles || []))}
             onChange={({ currentTarget: { value } }) =>
-              console.log({ roles: [+value] }, id)
+              // @ts-ignore
+              userStore.updateOne({ ...user, roles: [+value] }, id)
             }
           >
             {Object.entries(RoleName()).map(([value, name]) => (
