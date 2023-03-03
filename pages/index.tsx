@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react';
-import { Card,Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 
 import { GitCard } from '../components/Git/Card';
+import { MainNavigator } from '../components/MainNavigator';
 import { PageHead } from '../components/PageHead';
 import { i18n } from '../models/Translation';
 import styles from '../styles/Home.module.less';
@@ -16,6 +17,8 @@ const HomePage = observer(() => {
   return (
     <>
       <PageHead />
+
+      <MainNavigator />
 
       <Container as="main" className={styles.main}>
         <h1 className={`m-0 text-center ${styles.title}`}>

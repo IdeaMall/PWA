@@ -43,6 +43,7 @@ export default {
   dashboard: '仪表盘',
   users: '用户',
   categories: '品类',
+  goods: '商品',
 
   userCount: '用户总数',
   categoryCount: '品类总数',
@@ -62,4 +63,8 @@ export default {
 
   name: '名称',
   parent: '上级',
+
+  detail: '详情',
+  extra_style_name: '附加样式名',
+  extra_style_values: '附加样式值（空格分隔）',
 } as const;

@@ -5,41 +5,51 @@ import { PureComponent } from 'react';
 import { Container, Nav } from 'react-bootstrap';
 
 import { i18n } from '../models/Translation';
+import userStore from '../models/User';
 import { MainNavigator } from './MainNavigator';
 import { PageHead } from './PageHead';
 import { SessionBox } from './SessionBox';
 
-const { t } = i18n;
+const { location } = globalThis,
+  { t } = i18n;
 
 @observer
 export class AdminFrame extends PureComponent {
   get routes() {
     return [
       { path: '', icon: 'clipboard-data', title: t('dashboard') },
-      { path: 'user', icon: 'people', title: t('users') },
+      {
+        path: 'user',
+        icon: 'people',
+        title: t('users'),
+        roles: [Role.Administrator],
+      },
       { path: 'category', icon: 'tags', title: t('categories') },
+      { path: 'goods', icon: 'cart', title: t('goods') },
     ];
   }
 
-  routeOf(path: string) {
-    path = ('/admin/' + path).replace(/\/$/, '');
-
-    const active = globalThis.location?.pathname === path;
+  routeOf(rawPath: string) {
+    const path = ('/admin/' + rawPath).replace(/\/$/, '');
+    const active = rawPath
+      ? location?.pathname.startsWith(path)
+      : location?.pathname === path;
 
     return { path, active };
   }
 
   render() {
     const { children } = this.props,
-      { routes } = this;
+      { routes } = this,
+      { session } = userStore;
     const { title } =
       routes.find(({ path }) => this.routeOf(path).active) || {};
 
     return (
-      <SessionBox autoCover roles={[Role.Administrator]}>
+      <SessionBox autoCover roles={[Role.Administrator, Role.Manager]}>
         <PageHead title={`${title} - ${t('administrator')}`} />
 
-        <MainNavigator />
+        <MainNavigator fluid />
 
         <div className="d-flex">
           <div className="ps-2">
@@ -47,7 +57,13 @@ export class AdminFrame extends PureComponent {
               className="flex-column position-sticky"
               style={{ top: '4rem' }}
             >
-              {routes.map(({ path, icon, title }) => {
+              {routes.map(({ path, icon, title, roles }) => {
+                if (
+                  roles &&
+                  !session?.roles?.some(role => roles.includes(role))
+                )
+                  return;
+
                 var { path, active } = this.routeOf(path);
 
                 return (

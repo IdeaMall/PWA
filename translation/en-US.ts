@@ -45,6 +45,7 @@ export default {
   dashboard: 'Dashboard',
   users: 'Users',
   categories: 'Categories',
+  goods: 'Goods',
 
   userCount: 'User count',
   categoryCount: 'Category count',
@@ -64,4 +65,8 @@ export default {
 
   name: 'Name',
   parent: 'Parent',
+
+  detail: 'Detail',
+  extra_style_name: 'Extra Style Name',
+  extra_style_values: 'Extra Style Values (split with spaces)',
 } as const;
