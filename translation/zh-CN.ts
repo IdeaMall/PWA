@@ -66,5 +66,15 @@ export default {
 
   detail: '详情',
   extra_style_name: '附加样式名',
-  extra_style_values: '附加样式值（空格分隔）',
+  extra_style_values: '附加样式值',
+  multiple_separated_by_spaces: '（多个由空格分隔）',
+  address: '地址',
+
+  goods_items: '款式',
+  image: '图片',
+  price: '价格',
+  weight: '重量',
+  code: '代码',
+  styles: '样式',
+  stock: '库存',
 } as const;

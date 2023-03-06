@@ -4,7 +4,7 @@ import { PureComponent } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 
 import { AdminFrame } from '../../components/AdminFrame';
-import statisticStore from '../../models/Statistic';
+import { StatisticModel } from '../../models/Statistic';
 import { i18n } from '../../models/Translation';
 
 export default function AdminHomePage() {
@@ -19,12 +19,14 @@ const { t } = i18n;
 
 @observer
 class AdminHome extends PureComponent {
+  store = new StatisticModel();
+
   componentDidMount() {
-    statisticStore.getSummary();
+    this.store.getSummary();
   }
 
   render() {
-    const { summary } = statisticStore;
+    const { summary } = this.store;
 
     return (
       <Row xs={1} sm={2} md={4} className="g-4 text-center">

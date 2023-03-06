@@ -1,13 +1,15 @@
-import { Loading } from 'idea-react';
+import { GoodsOutput } from '@ideamall/data-model';
+import { Loading, text2color } from 'idea-react';
 import { observer } from 'mobx-react';
 import { Pager } from 'mobx-restful-table';
 import { PureComponent } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Badge, Button, Table } from 'react-bootstrap';
 import { parseURLData } from 'web-utility';
 
+import { Address } from '../../../components/Address/Card';
 import { AdminFrame } from '../../../components/AdminFrame';
 import { isServer } from '../../../models/Base';
-import goodsStore from '../../../models/Goods';
+import { GoodsModel } from '../../../models/Goods';
 import { i18n } from '../../../models/Translation';
 
 export default function GoodsAdminPage() {
@@ -22,21 +24,50 @@ const { t } = i18n;
 
 @observer
 class GoodsAdmin extends PureComponent {
+  store = new GoodsModel();
+
   componentDidMount() {
     if (isServer()) return;
 
     const { pageIndex = 1, pageSize } = parseURLData();
     // @ts-ignore
-    goodsStore.getList({}, pageIndex, pageSize);
+    this.store.getList({}, pageIndex, pageSize);
   }
+
+  renderRow = ({
+    id,
+    name,
+    category,
+    styleName,
+    styleValues,
+    store,
+    items,
+  }: GoodsOutput) => (
+    <tr key={id}>
+      <td>{name}</td>
+      <td>{category}</td>
+      <td>
+        {styleName}
+        {styleValues?.map(value => (
+          <Badge key={value} bg={text2color(value, ['light'])}>
+            {value}
+          </Badge>
+        ))}
+      </td>
+      <td>
+        <Address {...store} />
+      </td>
+      <td>{items.length}</td>
+    </tr>
+  );
 
   render() {
     const { downloading, pageIndex, pageSize, pageCount, currentPage } =
-      goodsStore;
+      this.store;
 
     return (
       <>
-        <header className="d-flex justify-content-between sticky-top bg-white">
+        <header className="d-flex justify-content-between sticky-top py-3 bg-white">
           <Pager {...{ pageIndex, pageSize, pageCount }} />
           <div>
             <Button href="/admin/goods/0">{t('create')}</Button>
@@ -48,14 +79,12 @@ class GoodsAdmin extends PureComponent {
         <Table responsive striped hover className="text-center">
           <thead>
             <th>{t('name')}</th>
+            <th>{t('categories')}</th>
+            <th>{t('extra_style_values')}</th>
+            <th>{t('address')}</th>
+            <th>{t('goods_items')}</th>
           </thead>
-          <tbody>
-            {currentPage.map(({ id, name }) => (
-              <tr key={id}>
-                <td>{name}</td>
-              </tr>
-            ))}
-          </tbody>
+          <tbody>{currentPage.map(this.renderRow)}</tbody>
         </Table>
       </>
     );

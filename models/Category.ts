@@ -32,5 +32,3 @@ export class CategoryModel extends TableModel<CategoryOutput> {
     return root;
   }
 }
-
-export default new CategoryModel();

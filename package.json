@@ -27,7 +27,7 @@
     "mobx-i18n": "^0.3.14",
     "mobx-react": "^6.3.1",
     "mobx-restful": "^0.6.3",
-    "mobx-restful-table": "^0.7.2",
+    "mobx-restful-table": "^0.7.3",
     "next": "^12.3.4",
     "next-pwa": "~5.6.0",
     "next-with-less": "^2.0.5",

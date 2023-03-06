@@ -68,5 +68,15 @@ export default {
 
   detail: 'Detail',
   extra_style_name: 'Extra Style Name',
-  extra_style_values: 'Extra Style Values (split with spaces)',
+  extra_style_values: 'Extra Style Values',
+  multiple_separated_by_spaces: '(multiple separated by spaces)',
+  address: 'Address',
+
+  goods_items: 'Goods Items',
+  image: 'Image',
+  price: 'Price',
+  weight: 'Weight',
+  code: 'Code',
+  styles: 'Styles',
+  stock: 'Stock',
 } as const;
