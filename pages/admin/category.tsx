@@ -14,7 +14,7 @@ import { Col, FloatingLabel, Form, Row } from 'react-bootstrap';
 import { formToJSON } from 'web-utility';
 
 import { AdminFrame } from '../../components/AdminFrame';
-import categoryStore, { CategoryNode } from '../../models/Category';
+import { CategoryModel, CategoryNode } from '../../models/Category';
 import { i18n } from '../../models/Translation';
 import userStore from '../../models/User';
 import { withTranslation } from '../api/core';
@@ -42,17 +42,18 @@ const { t } = i18n;
 @observer
 class CategoryAdmin extends PureComponent {
   form = createRef<HTMLFormElement>();
+  store = new CategoryModel();
 
   @observable
   current = {} as CategoryMeta;
 
   @computed
   get uploading() {
-    return userStore.uploading > 0 || categoryStore.uploading > 0;
+    return userStore.uploading > 0 || this.store.uploading > 0;
   }
 
   componentDidMount() {
-    categoryStore.getAll();
+    this.store.getAll();
   }
 
   updateImage = ({
@@ -77,7 +78,7 @@ class CategoryAdmin extends PureComponent {
 
     const imageURL = image && (await userStore.upload(image));
 
-    await categoryStore.updateOne({ ...data, image: imageURL }, id);
+    await this.store.updateOne({ ...data, image: imageURL }, id);
   };
 
   handleRemove = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -88,7 +89,7 @@ class CategoryAdmin extends PureComponent {
 
     if (!confirm(t('sure_to_delete_x', { keys: [name] }))) return;
 
-    await categoryStore.deleteOne(id!);
+    await this.store.deleteOne(id!);
 
     this.current = {} as CategoryMeta;
     form.reset();
@@ -97,7 +98,7 @@ class CategoryAdmin extends PureComponent {
   renderForm() {
     const { uploading } = this,
       { id, name, image, parentId } = this.current,
-      { allItems } = categoryStore;
+      { allItems } = this.store;
 
     return (
       <Col
@@ -177,7 +178,7 @@ class CategoryAdmin extends PureComponent {
   }
 
   render() {
-    const { downloading, tree } = categoryStore;
+    const { downloading, tree } = this.store;
 
     return (
       <Row xs={1} sm={2}>

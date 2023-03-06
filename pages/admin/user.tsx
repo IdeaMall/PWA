@@ -79,7 +79,7 @@ class UserAdmin extends PureComponent {
           deletable
           columns={this.columns}
           store={userStore}
-          translater={i18n}
+          translator={i18n}
           onCheck={console.log}
         />
       </Container>

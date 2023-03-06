@@ -18,5 +18,3 @@ export class StatisticModel extends BaseModel {
     return (this.summary = body!);
   }
 }
-
-export default new StatisticModel();

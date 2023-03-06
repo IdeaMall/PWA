@@ -36,7 +36,7 @@ specifiers:
   mobx-i18n: ^0.3.14
   mobx-react: ^6.3.1
   mobx-restful: ^0.6.3
-  mobx-restful-table: ^0.7.2
+  mobx-restful-table: ^0.7.3
   next: ^12.3.4
   next-pwa: ~5.6.0
   next-with-less: ^2.0.5
@@ -74,7 +74,7 @@ dependencies:
   mobx-i18n: 0.3.14_mobx@5.15.7
   mobx-react: 6.3.1_hhkghttxnhy2fe22wf4styxgna
   mobx-restful: 0.6.3_p26dyi66jui5532votno5vdvqi
-  mobx-restful-table: 0.7.2_ksgph2xjzpfws6qncn3nipebtu
+  mobx-restful-table: 0.7.3_ksgph2xjzpfws6qncn3nipebtu
   next: 12.3.4_sfoxds7t5ydpegc3knd667wn6m
   next-pwa: 5.6.0_next@12.3.4
   next-with-less: 2.0.5_7qch47vmkxdytnoviaew2l266y
@@ -4527,8 +4527,8 @@ packages:
       - react-native
     dev: false
 
-  /mobx-restful-table/0.7.2_ksgph2xjzpfws6qncn3nipebtu:
-    resolution: {integrity: sha512-dKMx+fN67QUQUToriT4ret8XKckRjedYS0JRgBdQ83vmoWuUywXWH6u1MXiHh4DdNXdunJi9Lq2jnLXfDA3cvQ==}
+  /mobx-restful-table/0.7.3_ksgph2xjzpfws6qncn3nipebtu:
+    resolution: {integrity: sha512-qGgYDFWU8U/YSPQW0QX9S4sy55QdsfJoSbv015z8u/2BR7FRwuEah54wNZ1EA8T/HUybEpSMwQpvWn4kiWL7ZQ==}
     peerDependencies:
       mobx: '>=4 <6'
       react: '>=16 <18'

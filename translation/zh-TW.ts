@@ -67,4 +67,14 @@ export default {
   detail: '詳情',
   extra_style_name: '附加樣式名',
   extra_style_values: '附加樣式值（空格分隔）',
+  multiple_separated_by_spaces: '（多個由空格分隔）',
+  address: '地址',
+
+  goods_items: '款式',
+  image: '圖片',
+  price: '價格',
+  weight: '重量',
+  code: '代碼',
+  styles: '樣式',
+  stock: '庫存',
 } as const;
