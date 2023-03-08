@@ -2,12 +2,14 @@ import { Loading, SpinnerButton } from 'idea-react';
 import { observer } from 'mobx-react';
 import { FormField } from 'mobx-restful-table';
 import dynamic from 'next/dynamic';
-import { PureComponent } from 'react';
+import { FormEvent, PureComponent } from 'react';
 import { FloatingLabel, Form } from 'react-bootstrap';
+import { formToJSON } from 'web-utility';
 
 import { AddressList } from '../../../components/Address';
 import { AdminFrame } from '../../../components/AdminFrame';
-import { GoodsItemTable } from '../../../components/GoodsItemTable';
+import { GoodsItemTable } from '../../../components/Goods/ItemTable';
+import { GoodsStyleEditor } from '../../../components/Goods/StyleEditor';
 import { AddressModel } from '../../../models/Address';
 import { CategoryModel } from '../../../models/Category';
 import { GoodsModel } from '../../../models/Goods';
@@ -41,6 +43,14 @@ class GoodsEditor extends PureComponent {
     this.categoryStore.getAll();
   }
 
+  handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const data = formToJSON(event.currentTarget);
+
+    console.log(data);
+  };
+
   renderCategory() {
     const { downloading, allItems } = this.categoryStore;
 
@@ -60,11 +70,11 @@ class GoodsEditor extends PureComponent {
   }
 
   render() {
-    const { uploading, currentItemStore } = this.goodsStore;
+    const { uploading, currentOne, currentItemStore } = this.goodsStore;
 
     return (
       <>
-        <Form className="d-flex flex-column gap-3">
+        <Form className="d-flex flex-column gap-3" onSubmit={this.handleSubmit}>
           <FormField
             label={t('name')}
             placeholder={t('name')}
@@ -73,16 +83,8 @@ class GoodsEditor extends PureComponent {
           />
           {this.renderCategory()}
 
-          <FormField
-            label={t('extra_style_name')}
-            placeholder={t('extra_style_name')}
-          />
-          <FormField
-            label={t('extra_style_values') + t('multiple_separated_by_spaces')}
-            placeholder={
-              t('extra_style_values') + t('multiple_separated_by_spaces')
-            }
-          />
+          <GoodsStyleEditor defaultValue={currentOne.styles} />
+
           <Form.Group>
             <Form.Label>{t('detail')}</Form.Label>
             <HTMLEditor />

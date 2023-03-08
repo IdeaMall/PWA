@@ -34,25 +34,23 @@ class GoodsAdmin extends PureComponent {
     this.store.getList({}, pageIndex, pageSize);
   }
 
-  renderRow = ({
-    id,
-    name,
-    category,
-    styleName,
-    styleValues,
-    store,
-    items,
-  }: GoodsOutput) => (
+  renderRow = ({ id, name, category, styles, store, items }: GoodsOutput) => (
     <tr key={id}>
       <td>{name}</td>
       <td>{category}</td>
       <td>
-        {styleName}
-        {styleValues?.map(value => (
-          <Badge key={value} bg={text2color(value, ['light'])}>
-            {value}
-          </Badge>
-        ))}
+        <ul className="list-styled">
+          {styles?.map(({ name, values }) => (
+            <li key={name} className="d-flex gap-2 align-items-center">
+              {name}
+              {values.map(value => (
+                <Badge key={value} bg={text2color(value, ['light'])}>
+                  {value}
+                </Badge>
+              ))}
+            </li>
+          ))}
+        </ul>
       </td>
       <td>
         <Address {...store} />
