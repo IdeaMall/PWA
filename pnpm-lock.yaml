@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@authing/guard': ^5.1.4
+  '@authing/guard': ^5.1.5
   '@editorjs/code': ^2.8.0
   '@editorjs/editorjs': ^2.26.5
   '@editorjs/header': ^2.7.0
@@ -10,7 +10,7 @@ specifiers:
   '@editorjs/list': ^1.8.0
   '@editorjs/paragraph': ^2.9.0
   '@editorjs/quote': ^2.5.0
-  '@ideamall/data-model': 1.0.0-rc.0
+  '@ideamall/data-model': 1.0.0-rc.1
   '@octokit/openapi-types': ^16.0.0
   '@supabase/supabase-js': ^2.10.0
   '@types/formidable': ^2.0.5
@@ -21,7 +21,7 @@ specifiers:
   editorjs-html: ^3.4.2
   eslint: ^8.35.0
   eslint-config-next: ^12.3.4
-  eslint-config-prettier: ^8.6.0
+  eslint-config-prettier: ^8.7.0
   eslint-plugin-simple-import-sort: ^10.0.0
   formidable: ^2.1.1
   husky: ^8.0.3
@@ -36,7 +36,7 @@ specifiers:
   mobx-i18n: ^0.3.14
   mobx-react: ^6.3.1
   mobx-restful: ^0.6.3
-  mobx-restful-table: ^0.7.3
+  mobx-restful-table: ^0.9.0-rc.1
   next: ^12.3.4
   next-pwa: ~5.6.0
   next-with-less: ^2.0.5
@@ -51,7 +51,7 @@ specifiers:
   web-utility: ^4.0.0
 
 dependencies:
-  '@authing/guard': 5.1.4
+  '@authing/guard': 5.1.5
   '@editorjs/code': 2.8.0
   '@editorjs/editorjs': 2.26.5
   '@editorjs/header': 2.7.0
@@ -60,7 +60,7 @@ dependencies:
   '@editorjs/list': 1.8.0
   '@editorjs/paragraph': 2.9.0
   '@editorjs/quote': 2.5.0
-  '@ideamall/data-model': 1.0.0-rc.0_p26dyi66jui5532votno5vdvqi
+  '@ideamall/data-model': 1.0.0-rc.1_p26dyi66jui5532votno5vdvqi
   '@supabase/supabase-js': 2.10.0
   editorjs-html: 3.4.2
   formidable: 2.1.1
@@ -74,7 +74,7 @@ dependencies:
   mobx-i18n: 0.3.14_mobx@5.15.7
   mobx-react: 6.3.1_hhkghttxnhy2fe22wf4styxgna
   mobx-restful: 0.6.3_p26dyi66jui5532votno5vdvqi
-  mobx-restful-table: 0.7.3_ksgph2xjzpfws6qncn3nipebtu
+  mobx-restful-table: 0.9.0-rc.1_ksgph2xjzpfws6qncn3nipebtu
   next: 12.3.4_sfoxds7t5ydpegc3knd667wn6m
   next-pwa: 5.6.0_next@12.3.4
   next-with-less: 2.0.5_7qch47vmkxdytnoviaew2l266y
@@ -94,7 +94,7 @@ devDependencies:
   '@types/react': 17.0.53
   eslint: 8.35.0
   eslint-config-next: 12.3.4_ycpbpc6yetojsgtrx3mwntkhsu
-  eslint-config-prettier: 8.6.0_eslint@8.35.0
+  eslint-config-prettier: 8.7.0_eslint@8.35.0
   eslint-plugin-simple-import-sort: 10.0.0_eslint@8.35.0
   husky: 8.0.3
   lint-staged: 13.1.2
@@ -163,10 +163,10 @@ packages:
       leven: 3.1.0
     dev: false
 
-  /@authing/guard/5.1.4:
-    resolution: {integrity: sha512-hkodhXLw1xJZnnuIG/dAPdUy2eRAriDA/5mTRwRfV3jsXz9pj/oTUcCOhzo4Yat5bQnwfCJPr/4oOTZUtcgkNg==}
+  /@authing/guard/5.1.5:
+    resolution: {integrity: sha512-WHB/t5KpOc74JT4uebMiCFaI3By9qxP39Kq27ne6xc9ZI9/T5kAxUPdn4sxEwgb+JE0R1HkKTNId8nU/YHrbLw==}
     dependencies:
-      '@authing/react-ui-components': 4.3.6_wcqkhtmu7mswc6yz4uyexck3ty
+      '@authing/react-ui-components': 4.3.8_wcqkhtmu7mswc6yz4uyexck3ty
       axios: 0.27.2
       react: 16.14.0
       react-dom: 16.14.0_react@16.14.0
@@ -174,8 +174,8 @@ packages:
       - debug
     dev: false
 
-  /@authing/react-ui-components/4.3.6_wcqkhtmu7mswc6yz4uyexck3ty:
-    resolution: {integrity: sha512-88xZ25iws9rWfZPE4zAgiBGtdhjFuglWu8NeEB7s8naEYAnoAsY/pFo5Hh/WUxn0lAC3mmFWjfjLGGAfaALBww==}
+  /@authing/react-ui-components/4.3.8_wcqkhtmu7mswc6yz4uyexck3ty:
+    resolution: {integrity: sha512-+jTyGLIs/4B3TKegmVHhF3jpkCc8l2xGCDgM+0k6y6Rencyvtpl5O+SqSEQSHXPxnSQ1DmSOt1G76WCpcnIC/g==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -1484,8 +1484,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@ideamall/data-model/1.0.0-rc.0_p26dyi66jui5532votno5vdvqi:
-    resolution: {integrity: sha512-9mUthXlBfR0LjtbR8iJfFKLwG97qs4fc1lbtoVJCsV3XS7VbZiETFfZvTHK1Y7+AXFOKztJPFbm4E9c42d358w==, tarball: download/@ideamall/data-model/1.0.0-rc.0/a9e3892d2febeef48c7b96cb8a38146e40d7a42f}
+  /@ideamall/data-model/1.0.0-rc.1_p26dyi66jui5532votno5vdvqi:
+    resolution: {integrity: sha512-+/psu2OZfRmjnEmgkwpiPMP/0JuAtGIU/p0NSK5CElODAuLAlPrI3Wylqnw9X2nLN0/jsJAIw+6JXz0PWikXOw==, tarball: download/@ideamall/data-model/1.0.0-rc.1/f7c4441b5762b73cd8aa791b9a3eaa93848f6531}
     dependencies:
       class-transformer: 0.5.1
       class-validator: 0.14.0
@@ -3130,8 +3130,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-config-prettier/8.6.0_eslint@8.35.0:
-    resolution: {integrity: sha512-bAF0eLpLVqP5oEVUFKpMA+NnRFICwn9X8B5jrR9FcqnYBuPbqWEjTEspPWMj5ye6czoSLDweCzSo3Ko7gGrZaA==}
+  /eslint-config-prettier/8.7.0_eslint@8.35.0:
+    resolution: {integrity: sha512-HHVXLSlVUhMSmyW4ZzEuvjpwqamgmlfkutD53cYXLikh4pt/modINRcCIApJ84czDxM4GZInwUrromsDdTImTA==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -4527,8 +4527,8 @@ packages:
       - react-native
     dev: false
 
-  /mobx-restful-table/0.7.3_ksgph2xjzpfws6qncn3nipebtu:
-    resolution: {integrity: sha512-qGgYDFWU8U/YSPQW0QX9S4sy55QdsfJoSbv015z8u/2BR7FRwuEah54wNZ1EA8T/HUybEpSMwQpvWn4kiWL7ZQ==}
+  /mobx-restful-table/0.9.0-rc.1_ksgph2xjzpfws6qncn3nipebtu:
+    resolution: {integrity: sha512-x/QuCXV1RnlFispPyojIdG17Yys7Zkv7lvXnehI4zpvJt3CObpLSAjH3rBI3BKc6Vv0EXbqWb138FX/CZqwDlQ==}
     peerDependencies:
       mobx: '>=4 <6'
       react: '>=16 <18'

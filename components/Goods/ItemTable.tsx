@@ -5,8 +5,8 @@ import { Column, RestTable } from 'mobx-restful-table';
 import { PureComponent } from 'react';
 import { Badge } from 'react-bootstrap';
 
-import { GoodsItemModel } from '../models/Goods';
-import { i18n } from '../models/Translation';
+import { GoodsItemModel } from '../../models/Goods';
+import { i18n } from '../../models/Translation';
 
 const { t } = i18n;
 
@@ -31,15 +31,20 @@ export class GoodsItemTable extends PureComponent<{ store: GoodsItemModel }> {
         key: 'styles',
         renderHead: t('styles'),
         renderBody: ({ styles }) =>
-          styles?.map(style => (
-            <Badge
-              key={style}
-              className="me-3"
-              bg={text2color(style, ['light'])}
-            >
-              {style}
-            </Badge>
-          )),
+          styles &&
+          Object.entries(styles).map(item => {
+            const style = item.join('-');
+
+            return (
+              <Badge
+                key={style}
+                className="me-3"
+                bg={text2color(style, ['light'])}
+              >
+                {style}
+              </Badge>
+            );
+          }),
       },
       { key: 'stock', renderHead: t('stock') },
     ];
