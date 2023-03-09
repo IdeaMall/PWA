@@ -89,7 +89,7 @@ class GoodsEditor extends PureComponent<{ id: string }> {
 
   render() {
     const { uploading, currentOne, currentItemStore } = this.goodsStore;
-    const { name, category, styles, store, description } = currentOne;
+    const { id, name, category, styles, store, description } = currentOne;
 
     return (
       <>
@@ -135,7 +135,13 @@ class GoodsEditor extends PureComponent<{ id: string }> {
           </footer>
         </Form>
 
-        {currentItemStore && <GoodsItemTable store={currentItemStore} />}
+        {currentItemStore && (
+          <GoodsItemTable
+            goodsId={id}
+            styleMeta={styles}
+            store={currentItemStore}
+          />
+        )}
       </>
     );
   }
