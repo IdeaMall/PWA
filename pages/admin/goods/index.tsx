@@ -35,11 +35,11 @@ class GoodsAdmin extends PureComponent {
   }
 
   renderRow = ({ id, name, category, styles, store, items }: GoodsOutput) => (
-    <tr key={id}>
+    <tr key={id} className="align-middle">
       <td>{name}</td>
-      <td>{category}</td>
+      <td>{category.name}</td>
       <td>
-        <ul className="list-styled">
+        <ul className="list-styled m-0">
           {styles?.map(({ name, values }) => (
             <li key={name} className="d-flex gap-2 align-items-center">
               {name}
@@ -55,7 +55,12 @@ class GoodsAdmin extends PureComponent {
       <td>
         <Address {...store} />
       </td>
-      <td>{items.length}</td>
+      <td>{items?.length || 0}</td>
+      <td>
+        <Button variant="warning" size="sm" href={`/admin/goods/${id}`}>
+          {t('edit')}
+        </Button>
+      </td>
     </tr>
   );
 
@@ -81,6 +86,7 @@ class GoodsAdmin extends PureComponent {
             <th>{t('extra_style_values')}</th>
             <th>{t('address')}</th>
             <th>{t('goods_items')}</th>
+            <th></th>
           </thead>
           <tbody>{currentPage.map(this.renderRow)}</tbody>
         </Table>

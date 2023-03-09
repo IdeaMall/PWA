@@ -1,28 +1,55 @@
-import { GoodsItemOutput } from '@ideamall/data-model';
+import { GoodsItemOutput, GoodsStyle } from '@ideamall/data-model';
 import { text2color } from 'idea-react';
 import { observer } from 'mobx-react';
-import { Column, RestTable } from 'mobx-restful-table';
+import { Column, ImagePreview, RestTable } from 'mobx-restful-table';
 import { PureComponent } from 'react';
-import { Badge } from 'react-bootstrap';
+import { Badge, Form } from 'react-bootstrap';
 
 import { GoodsItemModel } from '../../models/Goods';
 import { i18n } from '../../models/Translation';
+import { FileUploader } from '../FileUploader';
 
 const { t } = i18n;
 
+export interface GoodsItemTableProps {
+  goodsId: number;
+  styleMeta?: GoodsStyle[];
+  store: GoodsItemModel;
+}
+
 @observer
-export class GoodsItemTable extends PureComponent<{ store: GoodsItemModel }> {
+export class GoodsItemTable extends PureComponent<GoodsItemTableProps> {
   get columns(): Column<GoodsItemOutput>[] {
+    const { goodsId } = this.props;
+
     return [
+      {
+        renderInput: () => <input type="hidden" name="goods" value={goodsId} />,
+      },
       { key: 'name', renderHead: t('name') },
-      { key: 'image', type: 'file', renderHead: t('image') },
+      {
+        key: 'image',
+        renderHead: t('image'),
+        renderBody: ({ image }) => (
+          <ImagePreview style={{ height: '5rem' }} src={image} />
+        ),
+        renderInput: ({ image }) => (
+          <Form.Group className="mb-3">
+            <Form.Label>{t('image')}</Form.Label>
+
+            <FileUploader accept="image/*" name="image" defaultValue={image} />
+          </Form.Group>
+        ),
+      },
       {
         key: 'price',
+        type: 'number',
         renderHead: t('price'),
         renderBody: ({ price }) => `￥${price}`,
       },
       {
         key: 'kilogram',
+        type: 'number',
         renderHead: t('weight'),
         renderBody: ({ kilogram }) => `${kilogram}kg`,
       },
@@ -45,8 +72,9 @@ export class GoodsItemTable extends PureComponent<{ store: GoodsItemModel }> {
               </Badge>
             );
           }),
+        renderInput: () => <></>,
       },
-      { key: 'stock', renderHead: t('stock') },
+      { key: 'stock', type: 'number', renderHead: t('stock') },
     ];
   }
 

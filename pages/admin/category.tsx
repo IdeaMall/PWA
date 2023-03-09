@@ -122,7 +122,7 @@ class CategoryAdmin extends PureComponent {
         </FloatingLabel>
 
         <FormField
-          label="image"
+          label={t('image')}
           type="file"
           accept="image/*"
           name="image"

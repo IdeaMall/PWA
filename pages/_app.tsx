@@ -15,7 +15,7 @@ useStaticRendering(isServer());
 globalThis.addEventListener?.('unhandledrejection', ({ reason }) => {
   var { message, statusText, body } = reason as HTTPError;
 
-  message = body.message || statusText || message;
+  message = body?.message || statusText || message;
 
   if (message) alert(message);
 });

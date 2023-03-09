@@ -2,15 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@authing/guard': ^5.1.5
-  '@editorjs/code': ^2.8.0
-  '@editorjs/editorjs': ^2.26.5
-  '@editorjs/header': ^2.7.0
-  '@editorjs/image': ^2.8.1
-  '@editorjs/link': ^2.5.0
-  '@editorjs/list': ^1.8.0
-  '@editorjs/paragraph': ^2.9.0
-  '@editorjs/quote': ^2.5.0
-  '@ideamall/data-model': 1.0.0-rc.1
+  '@ideamall/data-model': 1.0.0-rc.2
   '@octokit/openapi-types': ^16.0.0
   '@supabase/supabase-js': ^2.10.0
   '@types/formidable': ^2.0.5
@@ -18,7 +10,6 @@ specifiers:
   '@types/lodash': ^4.14.191
   '@types/node': ^16.18.14
   '@types/react': ^17.0.53
-  editorjs-html: ^3.4.2
   eslint: ^8.35.0
   eslint-config-next: ^12.3.4
   eslint-config-prettier: ^8.7.0
@@ -36,7 +27,7 @@ specifiers:
   mobx-i18n: ^0.3.14
   mobx-react: ^6.3.1
   mobx-restful: ^0.6.3
-  mobx-restful-table: ^0.9.0-rc.1
+  mobx-restful-table: ^0.9.0
   next: ^12.3.4
   next-pwa: ~5.6.0
   next-with-less: ^2.0.5
@@ -45,24 +36,14 @@ specifiers:
   react-bootstrap: ^2.7.2
   react-bootstrap-editor: ^1.0.0-rc.7
   react-dom: ^17.0.2
-  react-editor-js: ^2.1.0
   ts-node: ^10.9.1
   typescript: ~4.9.5
   web-utility: ^4.0.0
 
 dependencies:
   '@authing/guard': 5.1.5
-  '@editorjs/code': 2.8.0
-  '@editorjs/editorjs': 2.26.5
-  '@editorjs/header': 2.7.0
-  '@editorjs/image': 2.8.1
-  '@editorjs/link': 2.5.0
-  '@editorjs/list': 1.8.0
-  '@editorjs/paragraph': 2.9.0
-  '@editorjs/quote': 2.5.0
-  '@ideamall/data-model': 1.0.0-rc.1_p26dyi66jui5532votno5vdvqi
+  '@ideamall/data-model': 1.0.0-rc.2_p26dyi66jui5532votno5vdvqi
   '@supabase/supabase-js': 2.10.0
-  editorjs-html: 3.4.2
   formidable: 2.1.1
   idea-react: 1.0.0-alpha.0_ljcshh7vwitidgxq3r6xvmjpx4
   jsonwebtoken: 9.0.0
@@ -74,7 +55,7 @@ dependencies:
   mobx-i18n: 0.3.14_mobx@5.15.7
   mobx-react: 6.3.1_hhkghttxnhy2fe22wf4styxgna
   mobx-restful: 0.6.3_p26dyi66jui5532votno5vdvqi
-  mobx-restful-table: 0.9.0-rc.1_ksgph2xjzpfws6qncn3nipebtu
+  mobx-restful-table: 0.9.0_ksgph2xjzpfws6qncn3nipebtu
   next: 12.3.4_sfoxds7t5ydpegc3knd667wn6m
   next-pwa: 5.6.0_next@12.3.4
   next-with-less: 2.0.5_7qch47vmkxdytnoviaew2l266y
@@ -82,7 +63,6 @@ dependencies:
   react-bootstrap: 2.7.2_zsjcj4gvi24ks76nprapl4hsmq
   react-bootstrap-editor: 1.0.0-rc.7_typescript@4.9.5
   react-dom: 17.0.2_react@17.0.2
-  react-editor-js: 2.1.0_ykokb2mcshig6c3qzgmwwlwuk4
   web-utility: 4.0.0_typescript@4.9.5
 
 devDependencies:
@@ -1360,14 +1340,6 @@ packages:
     resolution: {integrity: sha512-V8N/TY2TGyas4wLrPIFq7bcow68b3gu8DfDt1+rrHPtXxcexadKauRJL6eQgfG7Z0LCrN4boLRawR4S9gjIh/Q==}
     dev: false
 
-  /@codexteam/icons/0.0.5:
-    resolution: {integrity: sha512-s6H2KXhLz2rgbMZSkRm8dsMJvyUNZsEjxobBEg9ztdrb1B2H3pEzY6iTwI4XUPJWJ3c3qRKwV4TrO3J5jUdoQA==}
-    dev: false
-
-  /@codexteam/icons/0.0.6:
-    resolution: {integrity: sha512-L7Q5PET8PjKcBT5wp7VR+FCjwCi5PUp7rd/XjsgQ0CI5FJz0DphyHGRILMuDUdCW2MQT9NHbVr4QP31vwAkS/A==}
-    dev: false
-
   /@codexteam/icons/0.1.0:
     resolution: {integrity: sha512-jW1fWnwtWzcP4FBGsaodbJY3s1ZaRU+IJy1pvJ7ygNQxkQinybJcwXoyt0a5mWwu/4w30A42EWhCrZn8lp4fdw==}
     dev: false
@@ -1389,12 +1361,6 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@editorjs/code/2.8.0:
-    resolution: {integrity: sha512-qlv1OqSEPKnLv/ZQgNFmVgqsMbGDkh/qgTEnbVWsS+yujo1nlwgVkqCB8tOkQGVsrpmAYLiWRlA413nKxxCN5w==}
-    dependencies:
-      '@codexteam/icons': 0.0.5
-    dev: false
-
   /@editorjs/editorjs/2.26.5:
     resolution: {integrity: sha512-imwXZi9NmzxKjNosa1xQf286liJYsTe2J2DWCiV5TwKhvYZ1INg5Y+FietcM2v65QmeLqP7wgBUhoI7wiCB+yQ==}
     dependencies:
@@ -1405,41 +1371,10 @@ packages:
       nanoid: 3.3.4
     dev: false
 
-  /@editorjs/header/2.7.0:
-    resolution: {integrity: sha512-4fGKGe2ZYblVqR/P/iw5ieG00uXInFgNMftBMqJRYcB2hUPD30kuu7Sn6eJDcLXoKUMOeqi8Z2AlUxYAmvw7zQ==}
-    dependencies:
-      '@codexteam/icons': 0.0.5
-    dev: false
-
-  /@editorjs/image/2.8.1:
-    resolution: {integrity: sha512-4WscDAoi6OO0F6L7N1mkQymADwj8hHgH/ICk5wGRPdkesUZW1TgldX8XvSmy+f5VylsEi3F/gUggaZsrYxu2sA==}
-    dependencies:
-      '@codexteam/icons': 0.0.6
-    dev: false
-
-  /@editorjs/link/2.5.0:
-    resolution: {integrity: sha512-3Oa1VweBY7Sscjzw8pv1QcWGyP+XdPl6+yu+gXnSETyjz9TQRZUjved0qw2OomYOjMZ3RumrdDJXxoALlZdvuQ==}
-    dependencies:
-      '@babel/runtime': 7.19.0
-      '@codexteam/icons': 0.0.4
-    dev: false
-
-  /@editorjs/list/1.8.0:
-    resolution: {integrity: sha512-Vq6cjyTXBzgegYv/MtTfuDdiz59yGhDEc/yAVXr6lmvoWAFs9cJ4TLuh4/9SbrbhIptcQLDvUjMDKmRrV6v2NQ==}
-    dependencies:
-      '@codexteam/icons': 0.0.4
-    dev: false
-
   /@editorjs/paragraph/2.9.0:
     resolution: {integrity: sha512-lI6x1eiqFx2X3KmMak6gBlimFqXhG35fQpXMxzrjIphNLr4uPsXhVbyMPimPoLUnS9rM6Q00vptXmP2QNDd0zg==}
     dependencies:
       '@codexteam/icons': 0.0.4
-    dev: false
-
-  /@editorjs/quote/2.5.0:
-    resolution: {integrity: sha512-24Mu8cESaj34a0kg1Enj7qiZ3yiCOsZI59+8xpfXLO/NkO7hBYWNForVcBy5yIWs/VLlEZK11FP37f/mHrKugQ==}
-    dependencies:
-      '@codexteam/icons': 0.0.5
     dev: false
 
   /@eslint/eslintrc/2.0.0:
@@ -1484,8 +1419,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@ideamall/data-model/1.0.0-rc.1_p26dyi66jui5532votno5vdvqi:
-    resolution: {integrity: sha512-+/psu2OZfRmjnEmgkwpiPMP/0JuAtGIU/p0NSK5CElODAuLAlPrI3Wylqnw9X2nLN0/jsJAIw+6JXz0PWikXOw==, tarball: download/@ideamall/data-model/1.0.0-rc.1/f7c4441b5762b73cd8aa791b9a3eaa93848f6531}
+  /@ideamall/data-model/1.0.0-rc.2_p26dyi66jui5532votno5vdvqi:
+    resolution: {integrity: sha512-p5J4aXIfGzw6jpdvGoor8Ujk4c+c6lsbAAizYa6+e5ek98Rv0gR0myJccGtPBSphiAb58zsc4bj/fWrbnkeXpg==, tarball: download/@ideamall/data-model/1.0.0-rc.2/1c3ecbc26f271493ff1669ee2b86a112adb0483b}
     dependencies:
       class-transformer: 0.5.1
       class-validator: 0.14.0
@@ -4527,8 +4462,8 @@ packages:
       - react-native
     dev: false
 
-  /mobx-restful-table/0.9.0-rc.1_ksgph2xjzpfws6qncn3nipebtu:
-    resolution: {integrity: sha512-x/QuCXV1RnlFispPyojIdG17Yys7Zkv7lvXnehI4zpvJt3CObpLSAjH3rBI3BKc6Vv0EXbqWb138FX/CZqwDlQ==}
+  /mobx-restful-table/0.9.0_ksgph2xjzpfws6qncn3nipebtu:
+    resolution: {integrity: sha512-xPvGE+uo+fWxW3rK+N7pFzrp3uLax2WModk1xNVpXM0Xh+XtzyTGSn8T+l7ZrSMpHikhB5jNZ6M0A7n3UczsQA==}
     peerDependencies:
       mobx: '>=4 <6'
       react: '>=16 <18'
