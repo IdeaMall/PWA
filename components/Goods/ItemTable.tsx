@@ -15,14 +15,16 @@ export class GoodsItemTable extends PureComponent<{ store: GoodsItemModel }> {
   get columns(): Column<GoodsItemOutput>[] {
     return [
       { key: 'name', renderHead: t('name') },
-      { key: 'image', type: 'file', renderHead: t('image') },
+      { key: 'image', type: 'file', accept: 'image/*', renderHead: t('image') },
       {
         key: 'price',
+        type: 'number',
         renderHead: t('price'),
         renderBody: ({ price }) => `￥${price}`,
       },
       {
         key: 'kilogram',
+        type: 'number',
         renderHead: t('weight'),
         renderBody: ({ kilogram }) => `${kilogram}kg`,
       },
@@ -46,7 +48,7 @@ export class GoodsItemTable extends PureComponent<{ store: GoodsItemModel }> {
             );
           }),
       },
-      { key: 'stock', renderHead: t('stock') },
+      { key: 'stock', type: 'number', renderHead: t('stock') },
     ];
   }
 

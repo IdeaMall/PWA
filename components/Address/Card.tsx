@@ -2,8 +2,8 @@ import { AddressOutput } from '@ideamall/data-model';
 import { FC } from 'react';
 import { Card, CardProps } from 'react-bootstrap';
 
-export const Address: FC<
-  Pick<
+export interface AddressProps
+  extends Pick<
     AddressOutput,
     | 'country'
     | 'province'
@@ -14,8 +14,12 @@ export const Address: FC<
     | 'building'
     | 'floor'
     | 'room'
-  >
-> = ({
+  > {
+  className?: string;
+}
+
+export const Address: FC<AddressProps> = ({
+  className = 'm-0',
   country,
   province,
   city,
@@ -26,7 +30,7 @@ export const Address: FC<
   floor,
   room,
 }) => (
-  <address>
+  <address className={className}>
     {country}
     {province}
     {city}
@@ -43,6 +47,7 @@ export type AddressCardProps = AddressOutput & Pick<CardProps, 'as'>;
 
 export const AddressCard: FC<AddressCardProps> = ({
   as,
+  children,
   signature,
   mobilePhone,
   zipCode,
@@ -50,13 +55,17 @@ export const AddressCard: FC<AddressCardProps> = ({
 }) => (
   <Card as={as}>
     <Card.Body>
-      <Card.Title>{signature}</Card.Title>
+      <Card.Title className="d-flex justify-content-between align-items-center">
+        {signature}
 
-      <Card.Text as="a" href={`tel:${mobilePhone}`}>
-        {mobilePhone}
-      </Card.Text>
-
-      <Address {...address} />
+        <a className="small" href={`tel:${mobilePhone}`}>
+          {mobilePhone}
+        </a>
+      </Card.Title>
+      <div className="d-flex justify-content-between align-items-center">
+        <Address {...address} />
+        {children}
+      </div>
     </Card.Body>
   </Card>
 );

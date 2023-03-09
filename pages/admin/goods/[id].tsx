@@ -1,10 +1,12 @@
+import { GoodsInput } from '@ideamall/data-model';
 import { Loading, SpinnerButton } from 'idea-react';
 import { observer } from 'mobx-react';
 import { FormField } from 'mobx-restful-table';
+import { InferGetServerSidePropsType } from 'next';
 import dynamic from 'next/dynamic';
 import { FormEvent, PureComponent } from 'react';
 import { FloatingLabel, Form } from 'react-bootstrap';
-import { formToJSON } from 'web-utility';
+import { formToJSON, makeArray } from 'web-utility';
 
 import { AddressList } from '../../../components/Address';
 import { AdminFrame } from '../../../components/AdminFrame';
@@ -21,12 +23,14 @@ const HTMLEditor = dynamic(() => import('../../../components/HTMLEditor'), {
 });
 HTMLEditor.displayName = 'HTMLEditor';
 
-export const getServerSideProps = withRoute();
+export const getServerSideProps = withRoute<{ id: string }>();
 
-export default function GoodsEditorPage() {
+export default function GoodsEditorPage({
+  route: { params },
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <AdminFrame>
-      <GoodsEditor />
+      <GoodsEditor id={params!.id} />
     </AdminFrame>
   );
 }
@@ -34,24 +38,38 @@ export default function GoodsEditorPage() {
 const { t } = i18n;
 
 @observer
-class GoodsEditor extends PureComponent {
+class GoodsEditor extends PureComponent<{ id: string }> {
   categoryStore = new CategoryModel();
   addressStore = new AddressModel();
   goodsStore = new GoodsModel();
 
+  description = '';
+
   componentDidMount() {
     this.categoryStore.getAll();
+
+    const id = +this.props.id;
+
+    if (id) this.goodsStore.getOne(id);
   }
 
   handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const data = formToJSON(event.currentTarget);
+    const { styles, ...data } = formToJSON<GoodsInput>(event.currentTarget);
 
-    console.log(data);
+    this.goodsStore.updateOne(
+      {
+        ...data,
+        // @ts-ignore
+        styles: styles && makeArray(styles),
+        description: this.description || this.goodsStore.currentOne.description,
+      },
+      +this.props.id,
+    );
   };
 
-  renderCategory() {
+  renderCategory(defaultValue = 1) {
     const { downloading, allItems } = this.categoryStore;
 
     return (
@@ -60,7 +78,7 @@ class GoodsEditor extends PureComponent {
 
         <Form.Select name="category" aria-label={t('categories')}>
           {allItems.map(({ id, name }) => (
-            <option key={id} value={id}>
+            <option key={id} value={id} selected={id === defaultValue}>
               {name}
             </option>
           ))}
@@ -71,6 +89,7 @@ class GoodsEditor extends PureComponent {
 
   render() {
     const { uploading, currentOne, currentItemStore } = this.goodsStore;
+    const { name, category, styles, store, description } = currentOne;
 
     return (
       <>
@@ -80,20 +99,29 @@ class GoodsEditor extends PureComponent {
             placeholder={t('name')}
             name="name"
             required
+            defaultValue={name}
           />
-          {this.renderCategory()}
+          {this.renderCategory(category?.id)}
 
-          <GoodsStyleEditor defaultValue={currentOne.styles} />
+          {styles && <GoodsStyleEditor defaultValue={styles} />}
 
           <Form.Group>
             <Form.Label>{t('detail')}</Form.Label>
-            <HTMLEditor />
+
+            <HTMLEditor
+              defaultValue={description}
+              onChange={value => (this.description = value)}
+            />
           </Form.Group>
 
           <Form.Group>
             <Form.Label>{t('address')}</Form.Label>
 
-            <AddressList store={this.addressStore} />
+            <AddressList
+              store={this.addressStore}
+              name="store"
+              defaultValue={store?.id}
+            />
           </Form.Group>
 
           <footer className="sticky-top bottom-0 py-3 bg-white">

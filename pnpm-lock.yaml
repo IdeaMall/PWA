@@ -10,7 +10,7 @@ specifiers:
   '@editorjs/list': ^1.8.0
   '@editorjs/paragraph': ^2.9.0
   '@editorjs/quote': ^2.5.0
-  '@ideamall/data-model': 1.0.0-rc.1
+  '@ideamall/data-model': 1.0.0-rc.2
   '@octokit/openapi-types': ^16.0.0
   '@supabase/supabase-js': ^2.10.0
   '@types/formidable': ^2.0.5
@@ -36,7 +36,7 @@ specifiers:
   mobx-i18n: ^0.3.14
   mobx-react: ^6.3.1
   mobx-restful: ^0.6.3
-  mobx-restful-table: ^0.9.0-rc.1
+  mobx-restful-table: ^0.9.0-rc.2
   next: ^12.3.4
   next-pwa: ~5.6.0
   next-with-less: ^2.0.5
@@ -60,7 +60,7 @@ dependencies:
   '@editorjs/list': 1.8.0
   '@editorjs/paragraph': 2.9.0
   '@editorjs/quote': 2.5.0
-  '@ideamall/data-model': 1.0.0-rc.1_p26dyi66jui5532votno5vdvqi
+  '@ideamall/data-model': 1.0.0-rc.2_p26dyi66jui5532votno5vdvqi
   '@supabase/supabase-js': 2.10.0
   editorjs-html: 3.4.2
   formidable: 2.1.1
@@ -74,7 +74,7 @@ dependencies:
   mobx-i18n: 0.3.14_mobx@5.15.7
   mobx-react: 6.3.1_hhkghttxnhy2fe22wf4styxgna
   mobx-restful: 0.6.3_p26dyi66jui5532votno5vdvqi
-  mobx-restful-table: 0.9.0-rc.1_ksgph2xjzpfws6qncn3nipebtu
+  mobx-restful-table: 0.9.0-rc.2_ksgph2xjzpfws6qncn3nipebtu
   next: 12.3.4_sfoxds7t5ydpegc3knd667wn6m
   next-pwa: 5.6.0_next@12.3.4
   next-with-less: 2.0.5_7qch47vmkxdytnoviaew2l266y
@@ -1484,8 +1484,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@ideamall/data-model/1.0.0-rc.1_p26dyi66jui5532votno5vdvqi:
-    resolution: {integrity: sha512-+/psu2OZfRmjnEmgkwpiPMP/0JuAtGIU/p0NSK5CElODAuLAlPrI3Wylqnw9X2nLN0/jsJAIw+6JXz0PWikXOw==, tarball: download/@ideamall/data-model/1.0.0-rc.1/f7c4441b5762b73cd8aa791b9a3eaa93848f6531}
+  /@ideamall/data-model/1.0.0-rc.2_p26dyi66jui5532votno5vdvqi:
+    resolution: {integrity: sha512-p5J4aXIfGzw6jpdvGoor8Ujk4c+c6lsbAAizYa6+e5ek98Rv0gR0myJccGtPBSphiAb58zsc4bj/fWrbnkeXpg==, tarball: download/@ideamall/data-model/1.0.0-rc.2/1c3ecbc26f271493ff1669ee2b86a112adb0483b}
     dependencies:
       class-transformer: 0.5.1
       class-validator: 0.14.0
@@ -4527,8 +4527,8 @@ packages:
       - react-native
     dev: false
 
-  /mobx-restful-table/0.9.0-rc.1_ksgph2xjzpfws6qncn3nipebtu:
-    resolution: {integrity: sha512-x/QuCXV1RnlFispPyojIdG17Yys7Zkv7lvXnehI4zpvJt3CObpLSAjH3rBI3BKc6Vv0EXbqWb138FX/CZqwDlQ==}
+  /mobx-restful-table/0.9.0-rc.2_ksgph2xjzpfws6qncn3nipebtu:
+    resolution: {integrity: sha512-wOJ0wetQ523XAZOnqzh9sqPkI+6zbqGV8lhzGOrB1IKP7QAHHmeww1reH58VGbVgLh/xCUQE2Myjhm+eZO8mYw==}
     peerDependencies:
       mobx: '>=4 <6'
       react: '>=16 <18'

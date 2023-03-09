@@ -1,4 +1,5 @@
-import { AddressOutput } from '@ideamall/data-model';
+import { AddressOutput, AddressOwner } from '@ideamall/data-model';
+import { NewData } from 'mobx-restful';
 
 import { TableModel } from './Base';
 import userStore from './User';
@@ -7,8 +8,12 @@ export class AddressModel extends TableModel<AddressOutput> {
   client = userStore.client;
   baseURI = '';
 
-  constructor(sessionScope = false) {
+  constructor(public ownership = AddressOwner.Seller) {
     super();
-    this.baseURI = sessionScope ? 'user/session/address' : 'address';
+    this.baseURI = ownership ? 'user/session/address' : 'address';
+  }
+
+  updateOne(data: Partial<NewData<AddressOutput>>, id?: number) {
+    return super.updateOne({ ...data, ownership: this.ownership }, id);
   }
 }
