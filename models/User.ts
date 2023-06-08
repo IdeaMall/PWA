@@ -1,6 +1,6 @@
 import { Guard } from '@authing/guard';
 import { UserOutput } from '@ideamall/data-model';
-import { HTTPClient, HTTPError, request } from 'koajax';
+import { HTTPClient } from 'koajax';
 import { observable } from 'mobx';
 import { toggle } from 'mobx-restful';
 
@@ -21,7 +21,7 @@ export class UserModel extends TableModel<UserOutput> {
     localStorage?.session && JSON.parse(localStorage.session);
 
   client = new HTTPClient({
-    baseURI: process.env.NEXT_PUBLIC_DATA_HOST,
+    baseURI: API_Host,
     responseType: 'json',
   }).use(({ request }, next) => {
     if (this.session?.token)
@@ -55,29 +55,6 @@ export class UserModel extends TableModel<UserOutput> {
     this.session = undefined;
 
     localStorage.clear();
-  }
-
-  @toggle('uploading')
-  async upload(file: File) {
-    const form = new FormData();
-
-    form.append('data', file);
-
-    const response = await request<{ path: string }>({
-      method: 'POST',
-      path: `${API_Host}/api/file`,
-      headers: {
-        Authorization: `Bearer ${this.session?.token}`,
-      },
-      body: form,
-      responseType: 'json',
-    }).response;
-
-    const { status, statusText, body } = response;
-
-    if (status > 299) throw new HTTPError(statusText, response);
-
-    return body!.path;
   }
 }
 

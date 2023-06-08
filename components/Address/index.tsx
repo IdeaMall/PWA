@@ -7,33 +7,24 @@ import {
   ScrollList,
   ScrollListProps,
 } from 'mobx-restful-table';
+import { PureComponent } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
-import { AddressModel } from '../../models/Address';
 import { i18n } from '../../models/Translation';
 import { AddressCard } from './Card';
 
 const { t } = i18n;
 
-export interface AddressListProps extends ScrollListProps<AddressOutput> {
-  store: AddressModel;
+export interface AddressListProps
+  extends Omit<ScrollListProps<AddressOutput>, 'translator' | 'renderList'> {
   name: string;
   defaultValue?: number;
 }
 
 @observer
-export class AddressList extends ScrollList<AddressListProps> {
-  translator = i18n;
-  store = this.props.store;
-
+export class AddressList extends PureComponent<AddressListProps> {
   @observable
   creating = false;
-
-  constructor(props: AddressListProps) {
-    super(props);
-
-    this.boot();
-  }
 
   get fields(): Field<AddressOutput>[] {
     return [
@@ -53,7 +44,7 @@ export class AddressList extends ScrollList<AddressListProps> {
   }
 
   renderEditor() {
-    const { fields, store, creating } = this;
+    const { props, fields, creating } = this;
 
     return (
       <Modal show={creating} onHide={() => (this.creating = false)}>
@@ -65,15 +56,14 @@ export class AddressList extends ScrollList<AddressListProps> {
         </Modal.Header>
 
         <Modal.Body>
-          <RestForm translator={i18n} fields={fields} store={store} />
+          <RestForm translator={i18n} fields={fields} store={props.store} />
         </Modal.Body>
       </Modal>
     );
   }
 
-  renderList() {
-    const { name, defaultValue } = this.props,
-      { allItems } = this.store;
+  render() {
+    const { store, name, defaultValue } = this.props;
 
     return (
       <>
@@ -81,19 +71,24 @@ export class AddressList extends ScrollList<AddressListProps> {
           {t('create')}
         </Button>
 
-        <ul className="list-unstyled my-3">
-          {allItems.map(item => (
-            <AddressCard as="li" key={item.id} {...item}>
-              <Form.Check
-                type="radio"
-                name={name}
-                value={item.id}
-                defaultChecked={item.id === defaultValue}
-              />
-            </AddressCard>
-          ))}
-        </ul>
-
+        <ScrollList
+          translator={i18n}
+          store={store}
+          renderList={allItems => (
+            <ul className="list-unstyled my-3">
+              {allItems.map(item => (
+                <AddressCard as="li" key={item.id} {...item}>
+                  <Form.Check
+                    type="radio"
+                    name={name}
+                    value={item.id}
+                    defaultChecked={item.id === defaultValue}
+                  />
+                </AddressCard>
+              ))}
+            </ul>
+          )}
+        />
         {this.renderEditor()}
       </>
     );

@@ -15,6 +15,7 @@ import { formToJSON } from 'web-utility';
 
 import { AdminFrame } from '../../components/AdminFrame';
 import { CategoryModel, CategoryNode } from '../../models/Category';
+import fileStore from '../../models/File';
 import { i18n } from '../../models/Translation';
 import userStore from '../../models/User';
 import { withTranslation } from '../api/core';
@@ -76,7 +77,7 @@ class CategoryAdmin extends PureComponent {
     const form = event.currentTarget;
     const { id, image, ...data } = formToJSON<CategoryForm>(form);
 
-    const imageURL = image && (await userStore.upload(image));
+    const imageURL = image && (await fileStore.upload(image));
 
     await this.store.updateOne({ ...data, image: imageURL }, id);
   };

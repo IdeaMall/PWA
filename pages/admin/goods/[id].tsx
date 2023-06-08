@@ -65,7 +65,7 @@ class GoodsEditor extends PureComponent<{ id: string }> {
         styles: styles && makeArray(styles),
         description: this.description || this.goodsStore.currentOne.description,
       },
-      +this.props.id,
+      this.goodsStore.currentOne.id,
     );
   };
 
@@ -88,7 +88,8 @@ class GoodsEditor extends PureComponent<{ id: string }> {
   }
 
   render() {
-    const { uploading, currentOne, currentItemStore } = this.goodsStore;
+    const { uploading, currentOne, currentItemStore } = this.goodsStore,
+      isCreate = !+this.props.id;
     const { id, name, category, styles, store, description } = currentOne;
 
     return (
@@ -103,8 +104,9 @@ class GoodsEditor extends PureComponent<{ id: string }> {
           />
           {this.renderCategory(category?.id)}
 
-          {styles && <GoodsStyleEditor defaultValue={styles} />}
-
+          {(isCreate || styles) && (
+            <GoodsStyleEditor defaultValue={styles || []} />
+          )}
           <Form.Group>
             <Form.Label>{t('detail')}</Form.Label>
 
