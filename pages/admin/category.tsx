@@ -2,14 +2,8 @@ import { CategoryInput } from '@ideamall/data-model';
 import { Loading, SpinnerButton } from 'idea-react';
 import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { FormField } from 'mobx-restful-table';
-import {
-  ChangeEvent,
-  createRef,
-  FormEvent,
-  MouseEvent,
-  PureComponent,
-} from 'react';
+import { FileUploader } from 'mobx-restful-table';
+import { createRef,FormEvent, MouseEvent, PureComponent } from 'react';
 import { Col, FloatingLabel, Form, Row } from 'react-bootstrap';
 import { formToJSON } from 'web-utility';
 
@@ -34,10 +28,6 @@ interface CategoryMeta extends CategoryInput {
   id?: number;
 }
 
-interface CategoryForm extends Omit<CategoryMeta, 'image'> {
-  image?: File;
-}
-
 const { t } = i18n;
 
 @observer
@@ -50,36 +40,23 @@ class CategoryAdmin extends PureComponent {
 
   @computed
   get uploading() {
-    return userStore.uploading > 0 || this.store.uploading > 0;
+    return (
+      userStore.uploading > 0 ||
+      this.store.uploading > 0 ||
+      fileStore.uploading > 0
+    );
   }
 
   componentDidMount() {
     this.store.getAll();
   }
 
-  updateImage = ({
-    currentTarget: { files },
-  }: ChangeEvent<HTMLInputElement>) => {
-    const file = files?.[0];
-
-    if (!file) return;
-
-    const { image, ...rest } = this.current;
-
-    if (image?.startsWith('blob:')) URL.revokeObjectURL(image);
-
-    this.current = { ...rest, image: URL.createObjectURL(file) };
-  };
-
   handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = event.currentTarget;
-    const { id, image, ...data } = formToJSON<CategoryForm>(form);
+    const { id, ...data } = formToJSON<CategoryMeta>(event.currentTarget);
 
-    const imageURL = image && (await fileStore.upload(image));
-
-    await this.store.updateOne({ ...data, image: imageURL }, id);
+    await this.store.updateOne(data, id);
   };
 
   handleRemove = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -122,19 +99,25 @@ class CategoryAdmin extends PureComponent {
           />
         </FloatingLabel>
 
-        <FormField
-          label={t('image')}
-          type="file"
-          accept="image/*"
-          name="image"
-          value={image}
-          onChange={this.updateImage}
-        />
+        <Form.Group>
+          <Form.Label>{t('image')}</Form.Label>
+
+          <FileUploader
+            store={fileStore}
+            accept="image/*"
+            name="image"
+            value={image}
+            onChange={value =>
+              (this.current = { ...this.current, image: value + '' })
+            }
+          />
+        </Form.Group>
+
         <FloatingLabel controlId="parentId" label={t('parent')}>
           <Form.Select
             name="parentId"
             aria-label={t('parent')}
-            value={parentId}
+            value={parentId || ''}
             onChange={({ currentTarget: { value } }) =>
               (this.current = { ...this.current, parentId: +value })
             }

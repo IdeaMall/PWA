@@ -13,7 +13,7 @@ export class OwnFileModel extends FileModel {
 
     const response = await request<{ path: string }>({
       method: 'POST',
-      path: `${userStore.client.baseURI}/file`,
+      path: userStore.client.baseURI + 'file',
       headers: {
         Authorization: `Bearer ${userStore.session?.token}`,
       },
@@ -25,7 +25,7 @@ export class OwnFileModel extends FileModel {
 
     if (status > 299) throw new HTTPError(statusText, response);
 
-    return body!.path;
+    return super.upload(body!.path);
   }
 }
 

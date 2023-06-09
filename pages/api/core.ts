@@ -1,5 +1,3 @@
-import { Role, UserOutput } from '@ideamall/data-model';
-import { JwtPayload, verify } from 'jsonwebtoken';
 import { HTTPError } from 'koajax';
 import { parseLanguageHeader } from 'mobx-i18n';
 import { DataObject } from 'mobx-restful';
@@ -123,31 +121,4 @@ export function withTranslation<
       RouteProps<I> & InferGetServerSidePropsType<F>
     >;
   };
-}
-
-const AUTHING_APP_SECRET = process.env.AUTHING_APP_SECRET!;
-
-export function parseJWT<T>({ headers: { authorization } }: NextApiRequest) {
-  if (!authorization)
-    throw new HTTPError('Authorization header is missing', {
-      status: 401,
-      statusText: 'Unauthorized',
-      headers: {},
-    });
-  const [type, token] = authorization.split(/\s+/);
-
-  return verify(token, AUTHING_APP_SECRET) as JwtPayload & T;
-}
-
-export function verifyJWT(
-  request: NextApiRequest,
-  requiredRoles: Role[],
-  { status, statusText }: Pick<Response, 'status' | 'statusText'>,
-) {
-  const user = parseJWT<UserOutput>(request);
-
-  if (!requiredRoles.some(role => user.roles?.includes(role)))
-    throw new HTTPError('Forbidden', { status, statusText, headers: {} });
-
-  return user;
 }
