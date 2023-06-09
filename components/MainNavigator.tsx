@@ -40,9 +40,6 @@ export const MainNavigator: FC<MainNavigatorProps> = observer(
               <Link href="/component" passHref>
                 <Nav.Link>{t('component')}</Nav.Link>
               </Link>
-              <Link href="/scroll-list" passHref>
-                <Nav.Link>{t('scroll_list')}</Nav.Link>
-              </Link>
               <Nav.Link target="_blank" href="https://github.com/IdeaMall/PWA">
                 {t('source_code')}
               </Nav.Link>

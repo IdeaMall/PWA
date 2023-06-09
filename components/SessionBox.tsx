@@ -42,6 +42,7 @@ export class SessionBox extends PureComponent<SessionBoxProps> {
     document.scrollingElement?.classList.add('overflow-hidden');
 
     guard.on('close', this.closeModal);
+    guard.on('login-error', this.closeModal);
 
     const { token, tokenExpiredAt } = await guard.start('#authing-modal');
 
@@ -68,7 +69,7 @@ export class SessionBox extends PureComponent<SessionBoxProps> {
         <Head>
           <link
             rel="stylesheet"
-            href="https://cdn.authing.co/packages/guard/5.1.2/guard.min.css"
+            href="https://cdn.authing.co/packages/guard/5.2.0/guard.min.css"
           />
         </Head>
         <div

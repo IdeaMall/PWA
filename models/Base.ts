@@ -5,10 +5,11 @@ import { buildURLData } from 'web-utility';
 
 export const isServer = () => typeof window === 'undefined';
 
-const VercelHost = process.env.VERCEL_URL,
+export const VercelHost = process.env.VERCEL_URL,
+  API_Host = process.env.NEXT_PUBLIC_DATA_HOST,
   GithubToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
 
-export const API_Host = isServer()
+export const Web_Host = isServer()
   ? VercelHost
     ? `https://${VercelHost}`
     : 'http://localhost:3000'

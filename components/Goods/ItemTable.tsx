@@ -1,13 +1,18 @@
 import { GoodsItemOutput, GoodsStyle } from '@ideamall/data-model';
 import { text2color } from 'idea-react';
 import { observer } from 'mobx-react';
-import { Column, ImagePreview, RestTable } from 'mobx-restful-table';
+import {
+  Column,
+  FileUploader,
+  ImagePreview,
+  RestTable,
+} from 'mobx-restful-table';
 import { PureComponent } from 'react';
 import { Badge, Form } from 'react-bootstrap';
 
+import fileStore from '../../models/File';
 import { GoodsItemModel } from '../../models/Goods';
 import { i18n } from '../../models/Translation';
-import { FileUploader } from '../FileUploader';
 
 const { t } = i18n;
 
@@ -37,7 +42,12 @@ export class GoodsItemTable extends PureComponent<GoodsItemTableProps> {
           <Form.Group className="mb-3">
             <Form.Label>{t('image')}</Form.Label>
 
-            <FileUploader accept="image/*" name="image" defaultValue={image} />
+            <FileUploader
+              store={fileStore}
+              accept="image/*"
+              name="image"
+              defaultValue={image}
+            />
           </Form.Group>
         ),
       },
