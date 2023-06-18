@@ -43,8 +43,6 @@ class GoodsEditor extends PureComponent<{ id: string }> {
   addressStore = new AddressModel();
   goodsStore = new GoodsModel();
 
-  description = '';
-
   componentDidMount() {
     this.categoryStore.getAll();
 
@@ -63,7 +61,6 @@ class GoodsEditor extends PureComponent<{ id: string }> {
         ...data,
         // @ts-ignore
         styles: styles && makeArray(styles),
-        description: this.description || this.goodsStore.currentOne.description,
       },
       this.goodsStore.currentOne.id,
     );
@@ -110,10 +107,9 @@ class GoodsEditor extends PureComponent<{ id: string }> {
           <Form.Group>
             <Form.Label>{t('detail')}</Form.Label>
 
-            <HTMLEditor
-              defaultValue={description}
-              onChange={value => (this.description = value)}
-            />
+            {description && (
+              <HTMLEditor name="description" defaultValue={description} />
+            )}
           </Form.Group>
 
           <Form.Group>
