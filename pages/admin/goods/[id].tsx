@@ -14,6 +14,7 @@ import { GoodsItemTable } from '../../../components/Goods/ItemTable';
 import { GoodsStyleEditor } from '../../../components/Goods/StyleEditor';
 import { AddressModel } from '../../../models/Address';
 import { CategoryModel } from '../../../models/Category';
+import fileStore from '../../../models/File';
 import { GoodsModel } from '../../../models/Goods';
 import { i18n } from '../../../models/Translation';
 import { withRoute } from '../../api/core';
@@ -43,7 +44,9 @@ class GoodsEditor extends PureComponent<{ id: string }> {
   addressStore = new AddressModel();
   goodsStore = new GoodsModel();
 
-  description = '';
+  get isCreate() {
+    return !+this.props.id;
+  }
 
   componentDidMount() {
     this.categoryStore.getAll();
@@ -53,20 +56,21 @@ class GoodsEditor extends PureComponent<{ id: string }> {
     if (id) this.goodsStore.getOne(id);
   }
 
-  handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const { styles, ...data } = formToJSON<GoodsInput>(event.currentTarget);
 
-    this.goodsStore.updateOne(
+    await this.goodsStore.updateOne(
       {
         ...data,
         // @ts-ignore
         styles: styles && makeArray(styles),
-        description: this.description || this.goodsStore.currentOne.description,
       },
       this.goodsStore.currentOne.id,
     );
+
+    if (this.isCreate) location.href = '/admin/goods';
   };
 
   renderCategory(defaultValue = 1) {
@@ -88,12 +92,18 @@ class GoodsEditor extends PureComponent<{ id: string }> {
   }
 
   render() {
-    const { uploading, currentOne, currentItemStore } = this.goodsStore,
-      isCreate = !+this.props.id;
-    const { id, name, category, styles, store, description } = currentOne;
+    const { goodsStore, isCreate } = this;
+    const { currentOne, currentItemStore } = goodsStore;
+
+    const { id, name, category, styles, store, description } = currentOne,
+      fileUploading = fileStore.uploading > 0,
+      dataDownloading = goodsStore.downloading > 0,
+      uploading = goodsStore.uploading > 0 || fileUploading;
 
     return (
       <>
+        {(dataDownloading || fileUploading) && <Loading />}
+
         <Form className="d-flex flex-column gap-3" onSubmit={this.handleSubmit}>
           <FormField
             label={t('name')}
@@ -110,10 +120,9 @@ class GoodsEditor extends PureComponent<{ id: string }> {
           <Form.Group>
             <Form.Label>{t('detail')}</Form.Label>
 
-            <HTMLEditor
-              defaultValue={description}
-              onChange={value => (this.description = value)}
-            />
+            {!dataDownloading && (
+              <HTMLEditor name="description" defaultValue={description} />
+            )}
           </Form.Group>
 
           <Form.Group>
@@ -127,11 +136,7 @@ class GoodsEditor extends PureComponent<{ id: string }> {
           </Form.Group>
 
           <footer className="sticky-top bottom-0 py-3 bg-white">
-            <SpinnerButton
-              className="w-100"
-              type="submit"
-              loading={uploading > 0}
-            >
+            <SpinnerButton className="w-100" type="submit" loading={uploading}>
               {t('submit')}
             </SpinnerButton>
           </footer>
