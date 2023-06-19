@@ -3,10 +3,16 @@ import {
   Editor,
   EditorProps,
   IFrameTool,
+  ImageTool,
   OriginalTools,
   VideoTool,
 } from 'react-bootstrap-editor';
-import { Constructor } from 'web-utility';
+import { Constructor, uniqueID } from 'web-utility';
+
+import fileStore from '../models/File';
+
+ImageTool.prototype.save = blob =>
+  fileStore.upload(new File([blob], uniqueID()));
 
 const ExcludeTools = [IFrameTool, AudioTool, VideoTool];
 
