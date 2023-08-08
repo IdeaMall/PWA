@@ -10,9 +10,6 @@ import { AdminFrame } from '../../components/AdminFrame';
 import { GenderSymbol, RoleName } from '../../components/data';
 import { i18n } from '../../models/Translation';
 import userStore from '../../models/User';
-import { withTranslation } from '../api/core';
-
-export const getServerSideProps = withTranslation();
 
 export default function UserAdminPage() {
   return (

@@ -1,10 +1,10 @@
 import { CategoryInput } from '@ideamall/data-model';
-import { Loading, SpinnerButton } from 'idea-react';
+import { ClickBoundary, Loading, SpinnerButton } from 'idea-react';
 import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { FileUploader } from 'mobx-restful-table';
-import { createRef,FormEvent, MouseEvent, PureComponent } from 'react';
-import { Col, FloatingLabel, Form, Row } from 'react-bootstrap';
+import { createRef, FormEvent, MouseEvent, PureComponent } from 'react';
+import { Col, FloatingLabel, Form } from 'react-bootstrap';
 import { formToJSON } from 'web-utility';
 
 import { AdminFrame } from '../../components/AdminFrame';
@@ -12,9 +12,6 @@ import { CategoryModel, CategoryNode } from '../../models/Category';
 import fileStore from '../../models/File';
 import { i18n } from '../../models/Translation';
 import userStore from '../../models/User';
-import { withTranslation } from '../api/core';
-
-export const getServerSideProps = withTranslation();
 
 export default function CategoryAdminPage() {
   return (
@@ -51,26 +48,31 @@ class CategoryAdmin extends PureComponent {
     this.store.getAll();
   }
 
+  clearForm = () => {
+    this.current = {} as CategoryMeta;
+    this.form.current?.reset();
+  };
+
   handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const { id, ...data } = formToJSON<CategoryMeta>(event.currentTarget);
 
     await this.store.updateOne(data, id);
+
+    this.clearForm();
   };
 
   handleRemove = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    const form = this.form.current!;
-    const { id, name } = formToJSON<CategoryMeta>(form);
+    const { id, name } = formToJSON<CategoryMeta>(event.currentTarget.form!);
 
     if (!confirm(t('sure_to_delete_x', { keys: [name] }))) return;
 
     await this.store.deleteOne(id!);
 
-    this.current = {} as CategoryMeta;
-    form.reset();
+    this.clearForm();
   };
 
   renderForm() {
@@ -165,13 +167,16 @@ class CategoryAdmin extends PureComponent {
     const { downloading, tree } = this.store;
 
     return (
-      <Row xs={1} sm={2}>
+      <ClickBoundary
+        className="row row-cols-1 row-cols-sm-2"
+        onOuterClick={this.clearForm}
+      >
         {downloading > 0 && <Loading />}
 
         {this.renderForm()}
 
         <Col as="nav">{tree.subs?.map(node => this.renderTree(node))}</Col>
-      </Row>
+      </ClickBoundary>
     );
   }
 }
