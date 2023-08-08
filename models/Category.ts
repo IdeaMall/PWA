@@ -14,20 +14,22 @@ export class CategoryModel extends TableModel<CategoryOutput> {
 
   @computed
   get tree() {
-    const { 0: root } = this.allItems.reduce(
-      (cache, current) => {
-        current = { ...current };
+    const { 0: root } = this.allItems
+      .sort(({ id: a }, { id: b }) => a - b)
+      .reduce(
+        (cache, current) => {
+          current = { ...current };
 
-        cache[current.id] = current;
+          cache[current.id] = current;
 
-        const parent = cache[current.parentId || 0];
+          const parent = cache[current.parentId || 0];
 
-        (parent.subs ||= []).push(current);
+          if (parent) (parent.subs ||= []).push(current);
 
-        return cache;
-      },
-      { 0: {} as CategoryNode } as Record<number, CategoryNode>,
-    );
+          return cache;
+        },
+        { 0: {} as CategoryNode } as Record<number, CategoryNode>,
+      );
 
     return root;
   }

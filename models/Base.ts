@@ -47,6 +47,7 @@ export abstract class TableModel<
     if (id) this.changeOne(body!, id);
     else
       this.restoreList({
+        pageIndex: this.pageIndex,
         allItems: [body!, ...this.allItems],
         totalCount: this.totalCount! + 1,
       });

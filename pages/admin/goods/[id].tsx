@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { FormField } from 'mobx-restful-table';
 import { InferGetServerSidePropsType } from 'next';
 import dynamic from 'next/dynamic';
+import { compose, RouteProps, router } from 'next-ssr-middleware';
 import { FormEvent, PureComponent } from 'react';
 import { FloatingLabel, Form } from 'react-bootstrap';
 import { formToJSON, makeArray } from 'web-utility';
@@ -17,14 +18,16 @@ import { CategoryModel } from '../../../models/Category';
 import fileStore from '../../../models/File';
 import { GoodsModel } from '../../../models/Goods';
 import { i18n } from '../../../models/Translation';
-import { withRoute } from '../../api/core';
 
 const HTMLEditor = dynamic(() => import('../../../components/HTMLEditor'), {
   ssr: false,
 });
 HTMLEditor.displayName = 'HTMLEditor';
 
-export const getServerSideProps = withRoute<{ id: string }>();
+export const getServerSideProps = compose<
+  { id: string },
+  RouteProps<{ id: string }>
+>(router);
 
 export default function GoodsEditorPage({
   route: { params },
