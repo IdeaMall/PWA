@@ -1,10 +1,15 @@
 import { GoodsItemOutput, GoodsOutput } from '@ideamall/data-model';
-import { observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 
 import { TableModel } from './Base';
 import userStore from './User';
 
 export class GoodsModel extends TableModel<GoodsOutput> {
+  constructor() {
+    super();
+    makeObservable(this);
+  }
+
   client = userStore.client;
   baseURI = 'goods';
 

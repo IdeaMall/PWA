@@ -1,6 +1,6 @@
 import { CategoryInput } from '@ideamall/data-model';
 import { ClickBoundary, Loading, SpinnerButton } from 'idea-react';
-import { computed, observable } from 'mobx';
+import { computed, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { FileUploader } from 'mobx-restful-table';
 import { createRef, FormEvent, MouseEvent, PureComponent } from 'react';
@@ -29,6 +29,11 @@ const { t } = i18n;
 
 @observer
 class CategoryAdmin extends PureComponent {
+  constructor(props: {}) {
+    super(props);
+    makeObservable(this);
+  }
+
   form = createRef<HTMLFormElement>();
   store = new CategoryModel();
 

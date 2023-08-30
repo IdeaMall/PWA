@@ -1,7 +1,7 @@
 import { Role } from '@ideamall/data-model';
 import { Icon } from 'idea-react';
 import { observer } from 'mobx-react';
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import { Container, Nav } from 'react-bootstrap';
 
 import { i18n } from '../models/Translation';
@@ -14,7 +14,7 @@ const { location } = globalThis,
   { t } = i18n;
 
 @observer
-export class AdminFrame extends PureComponent {
+export class AdminFrame extends PureComponent<PropsWithChildren> {
   get routes() {
     return [
       { path: '', icon: 'clipboard-data', title: t('dashboard') },
@@ -64,15 +64,15 @@ export class AdminFrame extends PureComponent {
                 )
                   return;
 
-                var { path, active } = this.routeOf(path);
+                const route = this.routeOf(path);
 
                 return (
                   <Nav.Link
                     className={`text-nowrap rounded-3 ${
-                      active ? 'bg-primary text-white' : ''
+                      route.active ? 'bg-primary text-white' : ''
                     }`}
-                    href={path}
-                    key={path}
+                    href={route.path}
+                    key={route.path}
                   >
                     <Icon className="me-3" name={icon} />
                     <span className="d-none d-sm-inline">{title}</span>

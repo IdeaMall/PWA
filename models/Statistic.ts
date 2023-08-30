@@ -1,10 +1,15 @@
 import { StatisticSummary } from '@ideamall/data-model';
-import { observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 import { BaseModel, toggle } from 'mobx-restful';
 
 import userStore from './User';
 
 export class StatisticModel extends BaseModel {
+  constructor() {
+    super();
+    makeObservable(this);
+  }
+
   baseURI = 'statistic';
   client = userStore.client;
 

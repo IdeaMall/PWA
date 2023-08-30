@@ -1,7 +1,7 @@
 import { Guard } from '@authing/guard';
 import { UserOutput } from '@ideamall/data-model';
 import { HTTPClient } from 'koajax';
-import { observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 import { toggle } from 'mobx-restful';
 
 import { API_Host, TableModel } from './Base';
@@ -14,6 +14,11 @@ export const guard = new Guard({
 });
 
 export class UserModel extends TableModel<UserOutput> {
+  constructor() {
+    super();
+    makeObservable(this);
+  }
+
   baseURI = 'user';
 
   @observable

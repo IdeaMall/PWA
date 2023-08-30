@@ -1,6 +1,7 @@
 import { GoodsStyle } from '@ideamall/data-model';
-import { computed, observable } from 'mobx';
+import { computed, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
+import { observePropsState } from 'mobx-react-helper';
 import { BadgeInput } from 'mobx-restful-table';
 import { MouseEvent, PureComponent } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
@@ -16,17 +17,26 @@ export interface GoodsStyleEditorProps {
 }
 
 @observer
+@observePropsState
 export class GoodsStyleEditor extends PureComponent<GoodsStyleEditorProps> {
+  constructor(props: GoodsStyleEditorProps) {
+    super(props);
+    makeObservable(this);
+  }
+
+  declare observedProps: GoodsStyleEditorProps;
+
   @observable
   innerValue = this.props.defaultValue || [];
 
   @computed
   get value() {
-    return this.props.value || this.innerValue;
+    return this.observedProps.value || this.innerValue;
   }
 
+  @computed
   get controlled() {
-    return Array.isArray(this.props.value);
+    return Array.isArray(this.observedProps.value);
   }
 
   handleCreate = (event: MouseEvent<HTMLButtonElement>) => {
