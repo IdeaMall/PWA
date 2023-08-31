@@ -1,22 +1,26 @@
 import { Role } from '@ideamall/data-model';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
+import { observePropsState } from 'mobx-react-helper';
 import Head from 'next/head';
-import { MouseEvent, PureComponent } from 'react';
+import { Component, MouseEvent, PropsWithChildren } from 'react';
 
 import userStore, { guard } from '../models/User';
 
-export interface SessionBoxProps {
+export type SessionBoxProps = PropsWithChildren<{
   className?: string;
   autoCover?: boolean;
   roles?: Role[];
-}
+}>;
 
 @observer
-export class SessionBox extends PureComponent<SessionBoxProps> {
+@observePropsState
+export default class SessionBox extends Component<SessionBoxProps> {
+  declare observedProps: SessionBoxProps;
+
   @computed
   get authorized() {
-    const { roles } = this.props,
+    const { roles } = this.observedProps,
       { session } = userStore;
 
     return !!(roles

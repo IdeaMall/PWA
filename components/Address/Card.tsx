@@ -1,5 +1,5 @@
 import { AddressOutput } from '@ideamall/data-model';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { Card, CardProps } from 'react-bootstrap';
 
 export interface AddressProps
@@ -43,7 +43,9 @@ export const Address: FC<AddressProps> = ({
   </address>
 );
 
-export type AddressCardProps = AddressOutput & Pick<CardProps, 'as'>;
+export type AddressCardProps = PropsWithChildren<
+  AddressOutput & Pick<CardProps, 'as'>
+>;
 
 export const AddressCard: FC<AddressCardProps> = ({
   as,

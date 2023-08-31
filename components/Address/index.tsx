@@ -1,5 +1,5 @@
 import { AddressOutput } from '@ideamall/data-model';
-import { observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import {
   Field,
@@ -23,6 +23,11 @@ export interface AddressListProps
 
 @observer
 export class AddressList extends PureComponent<AddressListProps> {
+  constructor(props: AddressListProps) {
+    super(props);
+    makeObservable(this);
+  }
+
   @observable
   creating = false;
 
