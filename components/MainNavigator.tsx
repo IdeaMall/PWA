@@ -1,6 +1,6 @@
 import { Option, Select } from 'idea-react';
 import { observer } from 'mobx-react';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import {
   Container,
@@ -11,7 +11,8 @@ import {
 } from 'react-bootstrap';
 
 import { i18n, LanguageName } from '../models/Translation';
-import { UserMenu } from './UserMenu';
+
+const UserMenu = dynamic(() => import('./UserMenu'), { ssr: false });
 
 const Name = process.env.NEXT_PUBLIC_SITE_NAME || '';
 
@@ -37,9 +38,8 @@ export const MainNavigator: FC<MainNavigatorProps> = observer(
 
           <Navbar.Collapse id="navbar-inner">
             <Nav className="me-auto">
-              <Link href="/component" passHref>
-                <Nav.Link>{t('component')}</Nav.Link>
-              </Link>
+              <Nav.Link href="/component">{t('component')}</Nav.Link>
+
               <Nav.Link target="_blank" href="https://github.com/IdeaMall/PWA">
                 {t('source_code')}
               </Nav.Link>

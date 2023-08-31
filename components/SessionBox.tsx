@@ -3,7 +3,7 @@ import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { observePropsState } from 'mobx-react-helper';
 import Head from 'next/head';
-import { MouseEvent, PropsWithChildren, PureComponent } from 'react';
+import { Component, MouseEvent, PropsWithChildren } from 'react';
 
 import userStore, { guard } from '../models/User';
 
@@ -15,7 +15,7 @@ export type SessionBoxProps = PropsWithChildren<{
 
 @observer
 @observePropsState
-export class SessionBox extends PureComponent<SessionBoxProps> {
+export default class SessionBox extends Component<SessionBoxProps> {
   declare observedProps: SessionBoxProps;
 
   @computed

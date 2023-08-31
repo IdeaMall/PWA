@@ -1,6 +1,7 @@
 import { Role } from '@ideamall/data-model';
 import { Icon } from 'idea-react';
 import { observer } from 'mobx-react';
+import dynamic from 'next/dynamic';
 import { PropsWithChildren, PureComponent } from 'react';
 import { Container, Nav } from 'react-bootstrap';
 
@@ -8,9 +9,9 @@ import { i18n } from '../models/Translation';
 import userStore from '../models/User';
 import { MainNavigator } from './MainNavigator';
 import { PageHead } from './PageHead';
-import { SessionBox } from './SessionBox';
 
-const { location } = globalThis,
+const SessionBox = dynamic(() => import('./SessionBox'), { ssr: false }),
+  { location } = globalThis,
   { t } = i18n;
 
 @observer

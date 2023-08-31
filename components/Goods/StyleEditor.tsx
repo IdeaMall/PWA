@@ -3,7 +3,7 @@ import { computed, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { observePropsState } from 'mobx-react-helper';
 import { BadgeInput } from 'mobx-restful-table';
-import { MouseEvent, PureComponent } from 'react';
+import { Component, MouseEvent } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
 import { i18n } from '../../models/Translation';
@@ -18,7 +18,7 @@ export interface GoodsStyleEditorProps {
 
 @observer
 @observePropsState
-export class GoodsStyleEditor extends PureComponent<GoodsStyleEditorProps> {
+export class GoodsStyleEditor extends Component<GoodsStyleEditorProps> {
   constructor(props: GoodsStyleEditorProps) {
     super(props);
     makeObservable(this);
