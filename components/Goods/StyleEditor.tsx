@@ -1,4 +1,4 @@
-import { GoodsStyle } from '@ideamall/data-model';
+import { GoodsStyle } from '@ideamall/data-service';
 import { computed, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { observePropsState } from 'mobx-react-helper';

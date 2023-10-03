@@ -1,4 +1,4 @@
-import { Role } from '@ideamall/data-model';
+import { Role } from '@ideamall/data-service';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { observePropsState } from 'mobx-react-helper';

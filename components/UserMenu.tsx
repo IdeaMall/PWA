@@ -1,4 +1,4 @@
-import { Role } from '@ideamall/data-model';
+import { Role } from '@ideamall/data-service';
 import { observer } from 'mobx-react';
 import dynamic from 'next/dynamic';
 import { FC } from 'react';

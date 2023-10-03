@@ -1,14 +1,14 @@
-import { CategoryOutput } from '@ideamall/data-model';
+import { Category } from '@ideamall/data-service';
 import { computed } from 'mobx';
 
 import { TableModel } from './Base';
 import userStore from './User';
 
-export interface CategoryNode extends CategoryOutput {
+export interface CategoryNode extends Category {
   subs?: CategoryNode[];
 }
 
-export class CategoryModel extends TableModel<CategoryOutput> {
+export class CategoryModel extends TableModel<Category> {
   client = userStore.client;
   baseURI = 'category';
 

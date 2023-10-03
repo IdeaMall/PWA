@@ -1,4 +1,4 @@
-import { BaseOutput, ListChunk } from '@ideamall/data-model';
+import { Base, ListChunk } from '@ideamall/data-service';
 import { HTTPClient } from 'koajax';
 import { ListModel, NewData, toggle } from 'mobx-restful';
 import { buildURLData } from 'web-utility';
@@ -28,7 +28,7 @@ export const githubClient = new HTTPClient({
 });
 
 export abstract class TableModel<
-  D extends BaseOutput,
+  D extends Base,
   F extends NewData<D> = NewData<D>,
 > extends ListModel<D, F> {
   async loadPage(pageIndex: number, pageSize: number, filter: F) {

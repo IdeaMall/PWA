@@ -1,10 +1,10 @@
-import { GoodsItemOutput, GoodsOutput } from '@ideamall/data-model';
+import { Goods, GoodsItem } from '@ideamall/data-service';
 import { makeObservable, observable } from 'mobx';
 
 import { TableModel } from './Base';
 import userStore from './User';
 
-export class GoodsModel extends TableModel<GoodsOutput> {
+export class GoodsModel extends TableModel<Goods> {
   constructor() {
     super();
     makeObservable(this);
@@ -29,7 +29,7 @@ export class GoodsModel extends TableModel<GoodsOutput> {
   }
 }
 
-export class GoodsItemModel extends TableModel<GoodsItemOutput> {
+export class GoodsItemModel extends TableModel<GoodsItem> {
   client = userStore.client;
   baseURI = '';
 

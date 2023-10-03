@@ -1,4 +1,4 @@
-import { Gender, Role } from '@ideamall/data-model';
+import { Gender, Role } from '@ideamall/data-service';
 
 import { i18n } from '../models/Translation';
 

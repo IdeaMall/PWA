@@ -1,5 +1,5 @@
 import { Guard } from '@authing/guard';
-import { UserOutput } from '@ideamall/data-model';
+import { User } from '@ideamall/data-service';
 import { HTTPClient } from 'koajax';
 import { makeObservable, observable } from 'mobx';
 import { toggle } from 'mobx-restful';
@@ -13,7 +13,7 @@ export const guard = new Guard({
   appId: process.env.NEXT_PUBLIC_AUTHING_APP_ID!,
 });
 
-export class UserModel extends TableModel<UserOutput> {
+export class UserModel extends TableModel<User> {
   constructor() {
     super();
     makeObservable(this);
@@ -22,8 +22,7 @@ export class UserModel extends TableModel<UserOutput> {
   baseURI = 'user';
 
   @observable
-  session?: UserOutput =
-    localStorage?.session && JSON.parse(localStorage.session);
+  session?: User = localStorage?.session && JSON.parse(localStorage.session);
 
   client = new HTTPClient({
     baseURI: API_Host,
@@ -37,7 +36,7 @@ export class UserModel extends TableModel<UserOutput> {
     return next();
   });
 
-  saveSession(user: UserOutput) {
+  saveSession(user: User) {
     localStorage.session = JSON.stringify(user);
 
     return (this.session = user);
@@ -45,7 +44,7 @@ export class UserModel extends TableModel<UserOutput> {
 
   @toggle('uploading')
   async signInAuthing(token: string) {
-    const { body } = await this.client.post<UserOutput>(
+    const { body } = await this.client.post<User>(
       `${this.baseURI}/session/authing`,
       {},
       { Authorization: `Bearer ${token}` },

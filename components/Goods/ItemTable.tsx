@@ -1,4 +1,4 @@
-import { GoodsItemOutput, GoodsStyle } from '@ideamall/data-model';
+import { GoodsItem, GoodsStyle } from '@ideamall/data-service';
 import { text2color } from 'idea-react';
 import { observer } from 'mobx-react';
 import {
@@ -24,7 +24,7 @@ export interface GoodsItemTableProps {
 
 @observer
 export class GoodsItemTable extends PureComponent<GoodsItemTableProps> {
-  get columns(): Column<GoodsItemOutput>[] {
+  get columns(): Column<GoodsItem>[] {
     const { goodsId } = this.props;
 
     return [

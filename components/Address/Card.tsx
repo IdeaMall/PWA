@@ -1,10 +1,10 @@
-import { AddressOutput } from '@ideamall/data-model';
+import { Address } from '@ideamall/data-service';
 import { FC, PropsWithChildren } from 'react';
 import { Card, CardProps } from 'react-bootstrap';
 
 export interface AddressProps
   extends Pick<
-    AddressOutput,
+    Address,
     | 'country'
     | 'province'
     | 'city'
@@ -18,7 +18,7 @@ export interface AddressProps
   className?: string;
 }
 
-export const Address: FC<AddressProps> = ({
+export const AddressText: FC<AddressProps> = ({
   className = 'm-0',
   country,
   province,
@@ -44,7 +44,7 @@ export const Address: FC<AddressProps> = ({
 );
 
 export type AddressCardProps = PropsWithChildren<
-  AddressOutput & Pick<CardProps, 'as'>
+  Address & Pick<CardProps, 'as'>
 >;
 
 export const AddressCard: FC<AddressCardProps> = ({
@@ -65,7 +65,7 @@ export const AddressCard: FC<AddressCardProps> = ({
         </a>
       </Card.Title>
       <div className="d-flex justify-content-between align-items-center">
-        <Address {...address} />
+        <AddressText {...address} />
         {children}
       </div>
     </Card.Body>

@@ -1,4 +1,4 @@
-import { GoodsOutput } from '@ideamall/data-model';
+import { Goods } from '@ideamall/data-service';
 import { Loading, text2color } from 'idea-react';
 import { observer } from 'mobx-react';
 import { Pager } from 'mobx-restful-table';
@@ -6,7 +6,7 @@ import { PureComponent } from 'react';
 import { Badge, Button, Table } from 'react-bootstrap';
 import { parseURLData } from 'web-utility';
 
-import { Address } from '../../../components/Address/Card';
+import { AddressText } from '../../../components/Address/Card';
 import { AdminFrame } from '../../../components/AdminFrame';
 import { isServer } from '../../../models/Base';
 import { GoodsModel } from '../../../models/Goods';
@@ -34,7 +34,7 @@ class GoodsAdmin extends PureComponent {
     this.store.getList({}, pageIndex, pageSize);
   }
 
-  renderRow = ({ id, name, category, styles, store, items }: GoodsOutput) => (
+  renderRow = ({ id, name, category, styles, store, items }: Goods) => (
     <tr key={id} className="align-middle">
       <td>{name}</td>
       <td>{category.name}</td>
@@ -53,7 +53,7 @@ class GoodsAdmin extends PureComponent {
         </ul>
       </td>
       <td>
-        <Address {...store} />
+        <AddressText {...store} />
       </td>
       <td>{items?.length || 0}</td>
       <td>
