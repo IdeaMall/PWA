@@ -1,4 +1,4 @@
-import { Gender, UserOutput } from '@ideamall/data-model';
+import { Gender, User } from '@ideamall/data-service';
 import { Avatar } from 'idea-react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
@@ -24,7 +24,7 @@ const { t } = i18n;
 @observer
 class UserAdmin extends PureComponent {
   @computed
-  get columns(): Column<UserOutput>[] {
+  get columns(): Column<User>[] {
     return [
       {
         key: 'mobilePhone',

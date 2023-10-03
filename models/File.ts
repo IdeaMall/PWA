@@ -1,4 +1,3 @@
-import { HTTPError, request } from 'koajax';
 import { toggle } from 'mobx-restful';
 import { FileModel } from 'mobx-restful-table';
 
@@ -11,20 +10,10 @@ export class OwnFileModel extends FileModel {
 
     form.append('data', file);
 
-    const response = await request<{ path: string }>({
-      method: 'POST',
-      path: userStore.client.baseURI + 'file',
-      headers: {
-        Authorization: `Bearer ${userStore.session?.token}`,
-      },
-      body: form,
-      responseType: 'json',
-    }).response;
-
-    const { status, statusText, body } = response;
-
-    if (status > 299) throw new HTTPError(statusText, response);
-
+    const { body } = await userStore.client.post<{ path: string }>(
+      'file',
+      form,
+    );
     return super.upload(body!.path);
   }
 }

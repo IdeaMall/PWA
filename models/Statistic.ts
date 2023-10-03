@@ -1,4 +1,4 @@
-import { StatisticSummary } from '@ideamall/data-model';
+import { StatisticSummary } from '@ideamall/data-service';
 import { makeObservable, observable } from 'mobx';
 import { BaseModel, toggle } from 'mobx-restful';
 

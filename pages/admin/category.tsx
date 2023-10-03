@@ -1,4 +1,4 @@
-import { CategoryInput } from '@ideamall/data-model';
+import { Category, UserInputData } from '@ideamall/data-service';
 import { ClickBoundary, Loading, SpinnerButton } from 'idea-react';
 import { computed, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -21,7 +21,7 @@ export default function CategoryAdminPage() {
   );
 }
 
-interface CategoryMeta extends CategoryInput {
+interface CategoryMeta extends UserInputData<Category> {
   id?: number;
 }
 

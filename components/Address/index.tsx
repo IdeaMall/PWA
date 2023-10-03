@@ -1,4 +1,4 @@
-import { AddressOutput } from '@ideamall/data-model';
+import { Address } from '@ideamall/data-service';
 import { makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import {
@@ -16,7 +16,7 @@ import { AddressCard } from './Card';
 const { t } = i18n;
 
 export interface AddressListProps
-  extends Omit<ScrollListProps<AddressOutput>, 'translator' | 'renderList'> {
+  extends Omit<ScrollListProps<Address>, 'translator' | 'renderList'> {
   name: string;
   defaultValue?: number;
 }
@@ -31,7 +31,7 @@ export class AddressList extends PureComponent<AddressListProps> {
   @observable
   creating = false;
 
-  get fields(): Field<AddressOutput>[] {
+  get fields(): Field<Address>[] {
     return [
       { key: 'signature' },
       { key: 'mobilePhone', type: 'tel' },

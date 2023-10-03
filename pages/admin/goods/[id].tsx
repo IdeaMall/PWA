@@ -1,4 +1,4 @@
-import { GoodsInput } from '@ideamall/data-model';
+import { Goods } from '@ideamall/data-service';
 import { Loading, SpinnerButton } from 'idea-react';
 import { observer } from 'mobx-react';
 import { FormField } from 'mobx-restful-table';
@@ -62,7 +62,7 @@ class GoodsEditor extends PureComponent<{ id: string }> {
   handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { styles, ...data } = formToJSON<GoodsInput>(event.currentTarget);
+    const { styles, ...data } = formToJSON<Goods>(event.currentTarget);
 
     await this.goodsStore.updateOne(
       {

@@ -1,10 +1,10 @@
-import { AddressOutput, AddressOwner } from '@ideamall/data-model';
+import { Address, AddressOwner } from '@ideamall/data-service';
 import { NewData } from 'mobx-restful';
 
 import { TableModel } from './Base';
 import userStore from './User';
 
-export class AddressModel extends TableModel<AddressOutput> {
+export class AddressModel extends TableModel<Address> {
   client = userStore.client;
   baseURI = '';
 
@@ -13,7 +13,7 @@ export class AddressModel extends TableModel<AddressOutput> {
     this.baseURI = ownership ? 'user/session/address' : 'address';
   }
 
-  updateOne(data: Partial<NewData<AddressOutput>>, id?: number) {
+  updateOne(data: Partial<NewData<Address>>, id?: number) {
     return super.updateOne({ ...data, ownership: this.ownership }, id);
   }
 }

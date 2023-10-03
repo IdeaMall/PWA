@@ -1,4 +1,4 @@
-import { StatisticSummary } from '@ideamall/data-model';
+import { StatisticSummary } from '@ideamall/data-service';
 import { observer } from 'mobx-react';
 import { PureComponent } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
