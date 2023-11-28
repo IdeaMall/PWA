@@ -1,5 +1,6 @@
-import { StatisticSummary } from '@ideamall/data-service';
+import { Role, StatisticSummary } from '@ideamall/data-service';
 import { observer } from 'mobx-react';
+import dynamic from 'next/dynamic';
 import { PureComponent } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 
@@ -7,11 +8,17 @@ import { AdminFrame } from '../../components/AdminFrame';
 import { StatisticModel } from '../../models/Statistic';
 import { i18n } from '../../models/Translation';
 
+const SessionBox = dynamic(() => import('../../components/SessionBox'), {
+  ssr: false,
+});
+
 export default function AdminHomePage() {
   return (
-    <AdminFrame>
-      <AdminHome />
-    </AdminFrame>
+    <SessionBox autoCover roles={[Role.Administrator, Role.Manager]}>
+      <AdminFrame>
+        <AdminHome />
+      </AdminFrame>
+    </SessionBox>
   );
 }
 

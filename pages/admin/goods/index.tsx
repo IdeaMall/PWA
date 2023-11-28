@@ -1,7 +1,8 @@
-import { Goods } from '@ideamall/data-service';
+import { Goods, Role } from '@ideamall/data-service';
 import { Loading, text2color } from 'idea-react';
 import { observer } from 'mobx-react';
 import { Pager } from 'mobx-restful-table';
+import dynamic from 'next/dynamic';
 import { PureComponent } from 'react';
 import { Badge, Button, Table } from 'react-bootstrap';
 import { parseURLData } from 'web-utility';
@@ -12,11 +13,17 @@ import { isServer } from '../../../models/Base';
 import { GoodsModel } from '../../../models/Goods';
 import { i18n } from '../../../models/Translation';
 
+const SessionBox = dynamic(() => import('../../../components/SessionBox'), {
+  ssr: false,
+});
+
 export default function GoodsAdminPage() {
   return (
-    <AdminFrame>
-      <GoodsAdmin />
-    </AdminFrame>
+    <SessionBox autoCover roles={[Role.Administrator, Role.Manager]}>
+      <AdminFrame>
+        <GoodsAdmin />
+      </AdminFrame>
+    </SessionBox>
   );
 }
 

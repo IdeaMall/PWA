@@ -2,16 +2,18 @@
 
 [React][1] project scaffold based on [TypeScript][2], [Next.js][3], [Bootstrap][4] & [Workbox][5]. And this project bootstrapped with [`create-next-app`][6].
 
-[![NPM Dependency](https://david-dm.org/ideamall/pwa.svg)][7]
-[![CI & CD](https://github.com/IdeaMall/PWA/actions/workflows/main.yml/badge.svg)][8]
+[![CI & CD](https://github.com/IdeaMall/PWA/actions/workflows/main.yml/badge.svg)][7]
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)][8]
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)][9]
 
 ## Technology stack
 
 - Language: [TypeScript v5][2]
-- Component engine: [Nextjs v13][3]
+- Component engine: [Nextjs v14][3]
 - Component suite: [Bootstrap v5][4]
 - PWA framework: [Workbox v6][5]
-- State management: [MobX v6][9]
+- State management: [MobX v6][10]
 - CI / CD: GitHub [Actions][11] + [Vercel][12]
 
 ## Getting Started
@@ -61,9 +63,10 @@ pnpm container
 [4]: https://getbootstrap.com/
 [5]: https://developers.google.com/web/tools/workbox
 [6]: https://github.com/vercel/next.js/tree/canary/packages/create-next-app
-[7]: https://david-dm.org/ideamall/pwa
-[8]: https://github.com/IdeaMall/PWA/actions/workflows/main.yml
-[9]: https://github.com/mobxjs/mobx/tree/mobx4and5/docs
+[7]: https://github.com/IdeaMall/PWA/actions/workflows/main.yml
+[8]: https://codespaces.new/ideaMall/PWA
+[9]: https://gitpod.io/?autostart=true#https://github.com/ideaMall/PWA
+[10]: https://mobx.js.org/
 [11]: https://github.com/features/actions
 [12]: https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme
 [13]: https://nextjs.org/docs/api-routes/introduction
