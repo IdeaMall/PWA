@@ -1,8 +1,9 @@
-import { Gender, User } from '@ideamall/data-service';
+import { Gender, Role, User } from '@ideamall/data-service';
 import { Avatar } from 'idea-react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Column, RestTable } from 'mobx-restful-table';
+import dynamic from 'next/dynamic';
 import { PureComponent } from 'react';
 import { Container, Form } from 'react-bootstrap';
 
@@ -11,11 +12,17 @@ import { GenderSymbol, RoleName } from '../../components/data';
 import { i18n } from '../../models/Translation';
 import userStore from '../../models/User';
 
+const SessionBox = dynamic(() => import('../../components/SessionBox'), {
+  ssr: false,
+});
+
 export default function UserAdminPage() {
   return (
-    <AdminFrame>
-      <UserAdmin />
-    </AdminFrame>
+    <SessionBox autoCover roles={[Role.Administrator, Role.Manager]}>
+      <AdminFrame>
+        <UserAdmin />
+      </AdminFrame>
+    </SessionBox>
   );
 }
 

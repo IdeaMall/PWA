@@ -1,4 +1,4 @@
-import { Goods } from '@ideamall/data-service';
+import { Goods, Role } from '@ideamall/data-service';
 import { Loading, SpinnerButton } from 'idea-react';
 import { observer } from 'mobx-react';
 import { FormField } from 'mobx-restful-table';
@@ -19,6 +19,9 @@ import fileStore from '../../../models/File';
 import { GoodsModel } from '../../../models/Goods';
 import { i18n } from '../../../models/Translation';
 
+const SessionBox = dynamic(() => import('../../../components/SessionBox'), {
+  ssr: false,
+});
 const HTMLEditor = dynamic(() => import('../../../components/HTMLEditor'), {
   ssr: false,
 });
@@ -33,9 +36,11 @@ export default function GoodsEditorPage({
   route: { params },
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <AdminFrame>
-      <GoodsEditor id={params!.id} />
-    </AdminFrame>
+    <SessionBox autoCover roles={[Role.Administrator, Role.Manager]}>
+      <AdminFrame>
+        <GoodsEditor id={params!.id} />
+      </AdminFrame>
+    </SessionBox>
   );
 }
 

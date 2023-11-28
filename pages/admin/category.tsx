@@ -1,9 +1,10 @@
-import { Category, UserInputData } from '@ideamall/data-service';
+import { Category, Role, UserInputData } from '@ideamall/data-service';
 import { ClickBoundary, Loading, SpinnerButton } from 'idea-react';
 import { computed, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { FileUploader } from 'mobx-restful-table';
-import { createRef, FormEvent, MouseEvent, PureComponent } from 'react';
+import dynamic from 'next/dynamic';
+import { createRef,FormEvent, MouseEvent, PureComponent } from 'react';
 import { Col, FloatingLabel, Form } from 'react-bootstrap';
 import { formToJSON } from 'web-utility';
 
@@ -13,11 +14,17 @@ import fileStore from '../../models/File';
 import { i18n } from '../../models/Translation';
 import userStore from '../../models/User';
 
+const SessionBox = dynamic(() => import('../../components/SessionBox'), {
+  ssr: false,
+});
+
 export default function CategoryAdminPage() {
   return (
-    <AdminFrame>
-      <CategoryAdmin />
-    </AdminFrame>
+    <SessionBox autoCover roles={[Role.Administrator, Role.Manager]}>
+      <AdminFrame>
+        <CategoryAdmin />
+      </AdminFrame>
+    </SessionBox>
   );
 }
 

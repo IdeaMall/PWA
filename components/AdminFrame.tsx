@@ -10,8 +10,7 @@ import userStore from '../models/User';
 import { MainNavigator } from './MainNavigator';
 import { PageHead } from './PageHead';
 
-const SessionBox = dynamic(() => import('./SessionBox'), { ssr: false }),
-  { location } = globalThis,
+const { location } = globalThis,
   { t } = i18n;
 
 @observer
@@ -47,7 +46,7 @@ export class AdminFrame extends PureComponent<PropsWithChildren> {
       routes.find(({ path }) => this.routeOf(path).active) || {};
 
     return (
-      <SessionBox autoCover roles={[Role.Administrator, Role.Manager]}>
+      <>
         <PageHead title={`${title} - ${t('administrator')}`} />
 
         <MainNavigator fluid />
@@ -86,7 +85,7 @@ export class AdminFrame extends PureComponent<PropsWithChildren> {
             {children}
           </Container>
         </div>
-      </SessionBox>
+      </>
     );
   }
 }
