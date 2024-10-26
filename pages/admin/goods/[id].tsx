@@ -5,23 +5,24 @@ import { FormField } from 'mobx-restful-table';
 import { InferGetServerSidePropsType } from 'next';
 import dynamic from 'next/dynamic';
 import { compose, RouteProps, router } from 'next-ssr-middleware';
-import { FormEvent, PureComponent } from 'react';
+import { Component, FormEvent } from 'react';
 import { FloatingLabel, Form } from 'react-bootstrap';
 import { formToJSON, makeArray } from 'web-utility';
 
 import { AddressList } from '../../../components/Address';
-import { AdminFrame } from '../../../components/AdminFrame';
 import { GoodsItemTable } from '../../../components/Goods/ItemTable';
 import { GoodsStyleEditor } from '../../../components/Goods/StyleEditor';
+import { AdminFrame } from '../../../components/Layout/AdminFrame';
 import { AddressModel } from '../../../models/Address';
 import { CategoryModel } from '../../../models/Category';
 import fileStore from '../../../models/File';
 import { GoodsModel } from '../../../models/Goods';
-import { i18n } from '../../../models/Translation';
+import { t } from '../../../models/Translation';
 
-const SessionBox = dynamic(() => import('../../../components/SessionBox'), {
-  ssr: false,
-});
+const SessionBox = dynamic(
+  () => import('../../../components/Session/SessionBox'),
+  { ssr: false },
+);
 const HTMLEditor = dynamic(() => import('../../../components/HTMLEditor'), {
   ssr: false,
 });
@@ -44,10 +45,8 @@ export default function GoodsEditorPage({
   );
 }
 
-const { t } = i18n;
-
 @observer
-class GoodsEditor extends PureComponent<{ id: string }> {
+class GoodsEditor extends Component<{ id: string }> {
   categoryStore = new CategoryModel();
   addressStore = new AddressModel();
   goodsStore = new GoodsModel();
@@ -72,7 +71,7 @@ class GoodsEditor extends PureComponent<{ id: string }> {
     await this.goodsStore.updateOne(
       {
         ...data,
-        // @ts-ignore
+        // @ts-expect-error Back-end type error
         styles: styles && makeArray(styles),
       },
       this.goodsStore.currentOne.id,

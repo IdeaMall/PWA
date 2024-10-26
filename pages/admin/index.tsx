@@ -1,16 +1,17 @@
 import { Role, StatisticSummary } from '@ideamall/data-service';
 import { observer } from 'mobx-react';
 import dynamic from 'next/dynamic';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 
-import { AdminFrame } from '../../components/AdminFrame';
+import { AdminFrame } from '../../components/Layout/AdminFrame';
 import { StatisticModel } from '../../models/Statistic';
-import { i18n } from '../../models/Translation';
+import { t } from '../../models/Translation';
 
-const SessionBox = dynamic(() => import('../../components/SessionBox'), {
-  ssr: false,
-});
+const SessionBox = dynamic(
+  () => import('../../components/Session/SessionBox'),
+  { ssr: false },
+);
 
 export default function AdminHomePage() {
   return (
@@ -22,10 +23,8 @@ export default function AdminHomePage() {
   );
 }
 
-const { t } = i18n;
-
 @observer
-class AdminHome extends PureComponent {
+class AdminHome extends Component {
   store = new StatisticModel();
 
   componentDidMount() {

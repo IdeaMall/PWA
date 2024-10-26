@@ -1,14 +1,12 @@
 import { GoodsStyle } from '@ideamall/data-service';
-import { computed, makeObservable, observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { observePropsState } from 'mobx-react-helper';
 import { BadgeInput } from 'mobx-restful-table';
 import { Component, MouseEvent } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
-import { i18n } from '../../models/Translation';
-
-const { t } = i18n;
+import { t } from '../../models/Translation';
 
 export interface GoodsStyleEditorProps {
   defaultValue?: GoodsStyle[];
@@ -19,15 +17,10 @@ export interface GoodsStyleEditorProps {
 @observer
 @observePropsState
 export class GoodsStyleEditor extends Component<GoodsStyleEditorProps> {
-  constructor(props: GoodsStyleEditorProps) {
-    super(props);
-    makeObservable(this);
-  }
-
   declare observedProps: GoodsStyleEditorProps;
 
   @observable
-  innerValue = this.props.defaultValue || [];
+  accessor innerValue = this.props.defaultValue || [];
 
   @computed
   get value() {
@@ -62,10 +55,10 @@ export class GoodsStyleEditor extends Component<GoodsStyleEditorProps> {
 
   renderStyle = ({ name, values }: GoodsStyle, index: number) => (
     <Row
+      key={name + index}
       as="fieldset"
       className="g-3 align-items-center"
       name="styles"
-      key={name + index}
     >
       <Col xs={12} sm={4}>
         <Form.Control

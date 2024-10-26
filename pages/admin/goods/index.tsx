@@ -3,19 +3,20 @@ import { Loading, text2color } from 'idea-react';
 import { observer } from 'mobx-react';
 import { Pager } from 'mobx-restful-table';
 import dynamic from 'next/dynamic';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import { Badge, Button, Table } from 'react-bootstrap';
 import { parseURLData } from 'web-utility';
 
 import { AddressText } from '../../../components/Address/Card';
-import { AdminFrame } from '../../../components/AdminFrame';
+import { AdminFrame } from '../../../components/Layout/AdminFrame';
 import { isServer } from '../../../models/Base';
 import { GoodsModel } from '../../../models/Goods';
-import { i18n } from '../../../models/Translation';
+import { t } from '../../../models/Translation';
 
-const SessionBox = dynamic(() => import('../../../components/SessionBox'), {
-  ssr: false,
-});
+const SessionBox = dynamic(
+  () => import('../../../components/Session/SessionBox'),
+  { ssr: false },
+);
 
 export default function GoodsAdminPage() {
   return (
@@ -27,17 +28,16 @@ export default function GoodsAdminPage() {
   );
 }
 
-const { t } = i18n;
-
 @observer
-class GoodsAdmin extends PureComponent {
+class GoodsAdmin extends Component {
   store = new GoodsModel();
 
   componentDidMount() {
     if (isServer()) return;
 
     const { pageIndex = 1, pageSize } = parseURLData();
-    // @ts-ignore
+
+    // @ts-expect-error Back-end type error
     this.store.getList({}, pageIndex, pageSize);
   }
 

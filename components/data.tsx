@@ -1,14 +1,12 @@
 import { Gender, Role } from '@ideamall/data-service';
 
-import { i18n } from '../models/Translation';
+import { t } from '../models/Translation';
 
 export const GenderSymbol = {
   [Gender.Female]: <span className="text-danger">♀</span>,
   [Gender.Male]: <span className="text-primary">♂</span>,
   [Gender.Other]: <span className="text-secondary">?</span>,
 };
-
-const { t } = i18n;
 
 export const RoleName = () => ({
   [Role.Administrator]: t('administrator'),

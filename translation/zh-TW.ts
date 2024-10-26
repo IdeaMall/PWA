@@ -1,7 +1,12 @@
 import { IDType } from 'mobx-restful';
 
 export default {
+  captcha: '圖形驗證碼',
+  mobile_phone_number: '手機號',
+  SMS_code: '短訊驗證碼',
+  confirm: '確認',
   sign_in: '登錄',
+  sign_in_successfully: '登錄成功！',
   sign_out: '退出',
 
   welcome_to: '歡迎使用',

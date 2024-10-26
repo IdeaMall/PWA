@@ -1,5 +1,5 @@
 import { Address } from '@ideamall/data-service';
-import { makeObservable, observable } from 'mobx';
+import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import {
   Field,
@@ -7,13 +7,11 @@ import {
   ScrollList,
   ScrollListProps,
 } from 'mobx-restful-table';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
-import { i18n } from '../../models/Translation';
+import { i18n, t } from '../../models/Translation';
 import { AddressCard } from './Card';
-
-const { t } = i18n;
 
 export interface AddressListProps
   extends Omit<ScrollListProps<Address>, 'translator' | 'renderList'> {
@@ -22,14 +20,9 @@ export interface AddressListProps
 }
 
 @observer
-export class AddressList extends PureComponent<AddressListProps> {
-  constructor(props: AddressListProps) {
-    super(props);
-    makeObservable(this);
-  }
-
+export class AddressList extends Component<AddressListProps> {
   @observable
-  creating = false;
+  accessor creating = false;
 
   get fields(): Field<Address>[] {
     return [
@@ -82,7 +75,7 @@ export class AddressList extends PureComponent<AddressListProps> {
           renderList={allItems => (
             <ul className="list-unstyled my-3">
               {allItems.map(item => (
-                <AddressCard as="li" key={item.id} {...item}>
+                <AddressCard key={item.id} as="li" {...item}>
                   <Form.Check
                     type="radio"
                     name={name}

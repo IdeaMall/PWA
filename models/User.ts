@@ -1,33 +1,32 @@
-import { Guard } from '@authing/guard';
-import { User } from '@ideamall/data-service';
+import {
+  Captcha,
+  SignInData,
+  SMSCodeInput,
+  User,
+} from '@ideamall/data-service';
 import { HTTPClient } from 'koajax';
-import { makeObservable, observable } from 'mobx';
-import { toggle } from 'mobx-restful';
+import { observable } from 'mobx';
+import { persist, restore, toggle } from 'mobx-restful';
 
-import { API_Host, TableModel } from './Base';
-
-const { localStorage } = globalThis;
-
-export const guard = new Guard({
-  mode: 'modal',
-  appId: process.env.NEXT_PUBLIC_AUTHING_APP_ID!,
-});
+import { API_Host, isServer, TableModel } from './Base';
 
 export class UserModel extends TableModel<User> {
-  constructor() {
-    super();
-    makeObservable(this);
-  }
-
   baseURI = 'user';
+  restore = !isServer() && restore(this, 'User');
+
+  @persist()
+  @observable
+  accessor session: User | undefined;
 
   @observable
-  session?: User = localStorage?.session && JSON.parse(localStorage.session);
+  accessor captcha: Captcha | undefined;
 
   client = new HTTPClient({
     baseURI: API_Host,
     responseType: 'json',
-  }).use(({ request }, next) => {
+  }).use(async ({ request }, next) => {
+    await this.restore;
+
     if (this.session?.token)
       request.headers = {
         ...request.headers,
@@ -36,29 +35,32 @@ export class UserModel extends TableModel<User> {
     return next();
   });
 
-  saveSession(user: User) {
-    localStorage.session = JSON.stringify(user);
-
-    return (this.session = user);
-  }
-
   @toggle('uploading')
-  async signInAuthing(token: string) {
-    const { body } = await this.client.post<User>(
-      `${this.baseURI}/session/authing`,
-      {},
-      { Authorization: `Bearer ${token}` },
+  async createCaptcha() {
+    const { body } = await this.client.post<Captcha>(
+      `${this.baseURI}/session/captcha`,
     );
-    return this.saveSession(body!);
+    return (this.captcha = body!);
   }
 
   @toggle('uploading')
-  async signOut() {
-    await guard.logout();
+  async createSMSCode(data: SMSCodeInput) {
+    await this.client.post(`${this.baseURI}/session/SMS-code`, data);
 
+    this.captcha = undefined;
+  }
+
+  @toggle('uploading')
+  async signIn(data: SignInData) {
+    const { body } = await this.client.post<User>(
+      `${this.baseURI}/session`,
+      data,
+    );
+    return (this.session = body!);
+  }
+
+  signOut() {
     this.session = undefined;
-
-    localStorage.clear();
   }
 }
 

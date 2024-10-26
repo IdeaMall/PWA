@@ -7,14 +7,12 @@ import {
   ImagePreview,
   RestTable,
 } from 'mobx-restful-table';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import { Badge, Form } from 'react-bootstrap';
 
 import fileStore from '../../models/File';
 import { GoodsItemModel } from '../../models/Goods';
-import { i18n } from '../../models/Translation';
-
-const { t } = i18n;
+import { i18n, t } from '../../models/Translation';
 
 export interface GoodsItemTableProps {
   goodsId: number;
@@ -23,7 +21,7 @@ export interface GoodsItemTableProps {
 }
 
 @observer
-export class GoodsItemTable extends PureComponent<GoodsItemTableProps> {
+export class GoodsItemTable extends Component<GoodsItemTableProps> {
   get columns(): Column<GoodsItem>[] {
     const { goodsId } = this.props;
 

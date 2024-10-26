@@ -1,20 +1,15 @@
 import { Goods, GoodsItem } from '@ideamall/data-service';
-import { makeObservable, observable } from 'mobx';
+import { observable } from 'mobx';
 
 import { TableModel } from './Base';
 import userStore from './User';
 
 export class GoodsModel extends TableModel<Goods> {
-  constructor() {
-    super();
-    makeObservable(this);
-  }
-
   client = userStore.client;
   baseURI = 'goods';
 
   @observable
-  currentItemStore?: GoodsItemModel;
+  accessor currentItemStore: GoodsItemModel | undefined;
 
   itemStoreOf(goodsId: number) {
     return (this.currentItemStore = new GoodsItemModel(goodsId));

@@ -1,14 +1,15 @@
 import { text2color } from 'idea-react';
+import { GitRepository } from 'mobx-github';
 import { observer } from 'mobx-react';
 import { FC } from 'react';
-import { Badge, Button, Card, Col, Row } from 'react-bootstrap';
+import { Badge, Button, Card, CardProps, Col, Row } from 'react-bootstrap';
 
-import { GitRepository } from '../../models/Repository';
-import { i18n } from '../../models/Translation';
+import { t } from '../../models/Translation';
 import { GitLogo } from './Logo';
 
 export interface GitCardProps
-  extends Pick<GitRepository, 'full_name' | 'html_url' | 'languages'>,
+  extends Omit<CardProps, 'id'>,
+    Pick<GitRepository, 'full_name' | 'html_url' | 'languages'>,
     Partial<Pick<GitRepository, 'topics' | 'description' | 'homepage'>> {
   className?: string;
 }
@@ -22,8 +23,9 @@ export const GitCard: FC<GitCardProps> = observer(
     topics = [],
     description,
     homepage,
+    ...props
   }) => (
-    <Card className={className}>
+    <Card className={className} {...props}>
       <Card.Body className="d-flex flex-column gap-3">
         <Card.Title as="h3" className="h5">
           <a target="_blank" href={html_url} rel="noreferrer">
@@ -47,7 +49,7 @@ export const GitCard: FC<GitCardProps> = observer(
         </nav>
         <Row as="ul" className="list-unstyled g-4" xs={4}>
           {languages.map(language => (
-            <Col as="li" key={language}>
+            <Col key={language} as="li">
               <GitLogo name={language} />
             </Col>
           ))}
@@ -57,7 +59,7 @@ export const GitCard: FC<GitCardProps> = observer(
       <Card.Footer className="d-flex justify-content-between align-items-center">
         {homepage && (
           <Button variant="success" target="_blank" href={homepage}>
-            {i18n.t('home_page')}
+            {t('home_page')}
           </Button>
         )}
       </Card.Footer>

@@ -4,17 +4,18 @@ import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Column, RestTable } from 'mobx-restful-table';
 import dynamic from 'next/dynamic';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import { Container, Form } from 'react-bootstrap';
 
-import { AdminFrame } from '../../components/AdminFrame';
 import { GenderSymbol, RoleName } from '../../components/data';
-import { i18n } from '../../models/Translation';
+import { AdminFrame } from '../../components/Layout/AdminFrame';
+import { i18n, t } from '../../models/Translation';
 import userStore from '../../models/User';
 
-const SessionBox = dynamic(() => import('../../components/SessionBox'), {
-  ssr: false,
-});
+const SessionBox = dynamic(
+  () => import('../../components/Session/SessionBox'),
+  { ssr: false },
+);
 
 export default function UserAdminPage() {
   return (
@@ -26,10 +27,8 @@ export default function UserAdminPage() {
   );
 }
 
-const { t } = i18n;
-
 @observer
-class UserAdmin extends PureComponent {
+class UserAdmin extends Component {
   @computed
   get columns(): Column<User>[] {
     return [
@@ -58,7 +57,7 @@ class UserAdmin extends PureComponent {
           <Form.Select
             value={Math.min(...(roles || []))}
             onChange={({ currentTarget: { value } }) =>
-              // @ts-ignore
+              // @ts-expect-error Back-end type error
               userStore.updateOne({ ...user, roles: [+value] }, id)
             }
           >
