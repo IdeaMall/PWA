@@ -10,9 +10,9 @@ import {
   NavbarProps,
 } from 'react-bootstrap';
 
-import { i18n, LanguageName } from '../models/Translation';
+import { i18n, LanguageName } from '../../models/Translation';
 
-const UserMenu = dynamic(() => import('./UserMenu'), { ssr: false });
+const UserMenu = dynamic(() => import('../Session/UserMenu'), { ssr: false });
 
 const Name = process.env.NEXT_PUBLIC_SITE_NAME || '';
 

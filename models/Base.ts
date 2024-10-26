@@ -1,5 +1,5 @@
 import { Base, ListChunk } from '@ideamall/data-service';
-import { HTTPClient } from 'koajax';
+import { githubClient } from 'mobx-github';
 import { ListModel, NewData, toggle } from 'mobx-restful';
 import { buildURLData } from 'web-utility';
 
@@ -15,10 +15,7 @@ export const Web_Host = isServer()
     : 'http://localhost:3000'
   : globalThis.location.origin;
 
-export const githubClient = new HTTPClient({
-  baseURI: 'https://api.github.com/',
-  responseType: 'json',
-}).use(({ request }, next) => {
+githubClient.use(({ request }, next) => {
   if (GithubToken)
     request.headers = {
       ...request.headers,

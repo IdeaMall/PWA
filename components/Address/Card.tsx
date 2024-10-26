@@ -1,9 +1,9 @@
 import { Address } from '@ideamall/data-service';
-import { FC, PropsWithChildren } from 'react';
+import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { Card, CardProps } from 'react-bootstrap';
 
-export interface AddressProps
-  extends Pick<
+export type AddressProps = Omit<HTMLAttributes<HTMLElement>, 'id'> &
+  Pick<
     Address,
     | 'country'
     | 'province'
@@ -14,9 +14,7 @@ export interface AddressProps
     | 'building'
     | 'floor'
     | 'room'
-  > {
-  className?: string;
-}
+  >;
 
 export const AddressText: FC<AddressProps> = ({
   className = 'm-0',
@@ -29,8 +27,9 @@ export const AddressText: FC<AddressProps> = ({
   building,
   floor,
   room,
+  ...props
 }) => (
-  <address className={className}>
+  <address className={className} {...props}>
     {country}
     {province}
     {city}
@@ -49,6 +48,7 @@ export type AddressCardProps = PropsWithChildren<
 
 export const AddressCard: FC<AddressCardProps> = ({
   as,
+  id,
   children,
   signature,
   mobilePhone,

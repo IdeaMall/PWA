@@ -5,26 +5,26 @@ import { configure } from 'mobx';
 import { enableStaticRendering, observer } from 'mobx-react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { FC } from 'react';
 import { Image } from 'react-bootstrap';
 
 import { isServer } from '../models/Base';
-import { i18n } from '../models/Translation';
+import { t } from '../models/Translation';
 
 configure({ enforceActions: 'never' });
 
 enableStaticRendering(isServer());
 
 globalThis.addEventListener?.('unhandledrejection', ({ reason }) => {
-  var { message, statusText, body } = reason as HTTPError;
+  const { message, response } = reason as HTTPError;
+  const { statusText, body } = response || {};
 
-  message = body?.message || statusText || message;
+  const tips = body?.message || statusText || message;
 
-  if (message) alert(message);
+  if (tips) alert(tips);
 });
 
-const { t } = i18n;
-
-const AppShell = observer(({ Component, pageProps }: AppProps) => (
+const AppShell: FC<AppProps> = observer(({ Component, pageProps }) => (
   <>
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />

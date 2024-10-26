@@ -1,22 +1,23 @@
 import { Category, Role, UserInputData } from '@ideamall/data-service';
 import { ClickBoundary, Loading, SpinnerButton } from 'idea-react';
-import { computed, makeObservable, observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { FileUploader } from 'mobx-restful-table';
 import dynamic from 'next/dynamic';
-import { createRef,FormEvent, MouseEvent, PureComponent } from 'react';
+import { Component, createRef, FormEvent, MouseEvent } from 'react';
 import { Col, FloatingLabel, Form } from 'react-bootstrap';
 import { formToJSON } from 'web-utility';
 
-import { AdminFrame } from '../../components/AdminFrame';
+import { AdminFrame } from '../../components/Layout/AdminFrame';
 import { CategoryModel, CategoryNode } from '../../models/Category';
 import fileStore from '../../models/File';
-import { i18n } from '../../models/Translation';
+import { t } from '../../models/Translation';
 import userStore from '../../models/User';
 
-const SessionBox = dynamic(() => import('../../components/SessionBox'), {
-  ssr: false,
-});
+const SessionBox = dynamic(
+  () => import('../../components/Session/SessionBox'),
+  { ssr: false },
+);
 
 export default function CategoryAdminPage() {
   return (
@@ -32,20 +33,13 @@ interface CategoryMeta extends UserInputData<Category> {
   id?: number;
 }
 
-const { t } = i18n;
-
 @observer
-class CategoryAdmin extends PureComponent {
-  constructor(props: {}) {
-    super(props);
-    makeObservable(this);
-  }
-
+class CategoryAdmin extends Component {
   form = createRef<HTMLFormElement>();
   store = new CategoryModel();
 
   @observable
-  current = {} as CategoryMeta;
+  accessor current = {} as CategoryMeta;
 
   @computed
   get uploading() {
@@ -94,9 +88,9 @@ class CategoryAdmin extends PureComponent {
 
     return (
       <Col
+        ref={this.form}
         as="form"
         className="d-flex flex-column gap-3"
-        ref={this.form}
         onSubmit={this.handleSubmit}
       >
         <input type="hidden" name="id" value={id} />

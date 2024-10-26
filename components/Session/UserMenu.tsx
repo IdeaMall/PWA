@@ -1,14 +1,11 @@
 import { Role } from '@ideamall/data-service';
 import { observer } from 'mobx-react';
-import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { Button, Dropdown, DropdownButton } from 'react-bootstrap';
 
-import { i18n } from '../models/Translation';
-import userStore from '../models/User';
-
-const SessionBox = dynamic(() => import('./SessionBox'), { ssr: false }),
-  { t } = i18n;
+import { t } from '../../models/Translation';
+import userStore from '../../models/User';
+import SessionBox from './SessionBox';
 
 const UserMenu: FC = observer(() => {
   const { session } = userStore;

@@ -2,16 +2,17 @@ import { Role } from '@ideamall/data-service';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { observePropsState } from 'mobx-react-helper';
-import Head from 'next/head';
-import { Component, MouseEvent, PropsWithChildren } from 'react';
+import { Component, HTMLAttributes, MouseEvent } from 'react';
 
-import userStore, { guard } from '../models/User';
+import { t } from '../../models/Translation';
+import userStore from '../../models/User';
+import { captchaDialog } from './Captcha';
+import { mobilePhoneDialog, signWithSMSCode } from './SMSCode';
 
-export type SessionBoxProps = PropsWithChildren<{
-  className?: string;
+export interface SessionBoxProps extends HTMLAttributes<HTMLDivElement> {
   autoCover?: boolean;
   roles?: Role[];
-}>;
+}
 
 @observer
 @observePropsState
@@ -34,27 +35,18 @@ export default class SessionBox extends Component<SessionBoxProps> {
     if (autoCover) this.openModal();
   }
 
-  closeModal = () => {
-    guard.hide();
-
-    document.scrollingElement?.classList.remove('overflow-hidden');
-  };
-
   async openModal() {
-    if (+new Date(localStorage.tokenExpiredAt) > Date.now()) return;
+    const captcha = await captchaDialog.open();
 
-    document.scrollingElement?.classList.add('overflow-hidden');
+    const smsCodeInput = await mobilePhoneDialog.open(captcha);
 
-    guard.on('close', this.closeModal);
-    guard.on('login-error', this.closeModal);
+    await userStore.createSMSCode(smsCodeInput);
 
-    const { token, tokenExpiredAt } = await guard.start('#authing-modal');
+    const signInData = await signWithSMSCode.open(smsCodeInput);
 
-    localStorage.tokenExpiredAt = tokenExpiredAt;
+    await userStore.signIn(signInData);
 
-    await userStore.signInAuthing(token!);
-
-    this.closeModal();
+    alert(t('sign_in_successfully'));
   }
 
   captureInput = (event: MouseEvent<HTMLDivElement>) => {
@@ -65,19 +57,16 @@ export default class SessionBox extends Component<SessionBoxProps> {
   };
 
   render() {
-    const { className, autoCover, children } = this.props,
+    const { autoCover, children, ...props } = this.props,
       { authorized } = this;
 
     return (
       <>
-        <Head>
-          <link
-            rel="stylesheet"
-            href="https://cdn.authing.co/packages/guard/5.2.0/guard.min.css"
-          />
-        </Head>
+        <captchaDialog.Component />
+        <mobilePhoneDialog.Component />
+        <signWithSMSCode.Component />
         <div
-          className={className}
+          {...props}
           onClickCapture={
             autoCover || authorized ? undefined : this.captureInput
           }
